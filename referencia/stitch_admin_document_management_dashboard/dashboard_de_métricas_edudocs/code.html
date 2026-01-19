@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard de Métricas EduDocs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2f8598",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#141c1e",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(47, 133, 152, 0.1) 0%, rgba(47, 133, 152, 0) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#121617] dark:text-gray-100 font-display transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-gray-100 dark:border-gray-800">
+<div class="text-[#121617] dark:text-white flex size-10 shrink-0 items-center justify-center rounded-lg bg-background-light dark:bg-gray-800">
+<span class="material-symbols-outlined">menu</span>
+</div>
+<div class="flex flex-col items-center">
+<h2 class="text-[#121617] dark:text-white text-lg font-bold leading-tight tracking-tight">EduDocs Analytics</h2>
+<span class="text-[10px] uppercase tracking-widest text-primary font-bold">Secretaria de Educação</span>
+</div>
+<div class="flex w-10 items-center justify-end">
+<button class="flex size-10 items-center justify-center rounded-lg bg-background-light dark:bg-gray-800 text-[#121617] dark:text-white">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<main class="flex flex-col gap-6 p-4">
+<!-- Summary Stats (Bento-Box Style) -->
+<div class="grid grid-cols-2 gap-3">
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">download</span>
+<span class="text-[#078834] text-xs font-bold bg-[#078834]/10 px-1.5 py-0.5 rounded">+12%</span>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Total Downloads</p>
+<p class="text-[#121617] dark:text-white text-2xl font-extrabold leading-tight">12.5k</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">description</span>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Top Documento</p>
+<p class="text-[#121617] dark:text-white text-sm font-bold leading-tight line-clamp-1 mt-1">Manual BNCC 2024</p>
+<p class="text-gray-400 text-[10px]">Pedagógico</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+<span class="text-[#078834] text-xs font-bold bg-[#078834]/10 px-1.5 py-0.5 rounded">+5%</span>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Mês Atual</p>
+<p class="text-[#121617] dark:text-white text-2xl font-extrabold leading-tight">1.2k</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">group</span>
+<span class="text-[#e73508] text-xs font-bold bg-[#e73508]/10 px-1.5 py-0.5 rounded">-2%</span>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Usuários Ativos</p>
+<p class="text-[#121617] dark:text-white text-2xl font-extrabold leading-tight">450</p>
+</div>
+</div>
+</div>
+<!-- Line Chart: Tendência 30 dias -->
+<div class="flex flex-col gap-4 rounded-xl p-5 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-[#121617] dark:text-white text-base font-bold">Tendência de Downloads</h3>
+<p class="text-gray-500 text-sm">Últimos 30 dias</p>
+</div>
+<div class="bg-primary/10 text-primary p-2 rounded-lg">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-extrabold dark:text-white">3.450</span>
+<span class="text-[#078834] text-sm font-bold">+15.4%</span>
+</div>
+<div class="h-40 w-full mt-2 relative">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 400 120">
+<defs>
+<lineargradient id="line-grad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#2f8598" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#2f8598" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area Fill -->
+<path d="M0,80 Q50,40 100,70 T200,30 T300,90 T400,20 V120 H0 Z" fill="url(#line-grad)"></path>
+<!-- Line Path -->
+<path d="M0,80 Q50,40 100,70 T200,30 T300,90 T400,20" fill="none" stroke="#2f8598" stroke-linecap="round" stroke-width="3"></path>
+<!-- Key Points -->
+<circle cx="200" cy="30" fill="#2f8598" r="4"></circle>
+<circle cx="400" cy="20" fill="#2f8598" r="4"></circle>
+</svg>
+<div class="flex justify-between mt-2 px-1">
+<span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">01 Out</span>
+<span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">15 Out</span>
+<span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">30 Out</span>
+</div>
+</div>
+</div>
+<!-- Bar Chart: Downloads por Setor -->
+<div class="flex flex-col gap-4 rounded-xl p-5 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
+<h3 class="text-[#121617] dark:text-white text-base font-bold">Downloads por Setor</h3>
+<div class="space-y-4 py-2">
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-gray-600 dark:text-gray-300">Pedagógico</span>
+<span class="text-primary">4.2k</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-gray-600 dark:text-gray-300">Recursos Humanos</span>
+<span class="text-primary">2.8k</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-gray-600 dark:text-gray-300">Financeiro</span>
+<span class="text-primary">1.5k</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 35%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-gray-600 dark:text-gray-300">Jurídico</span>
+<span class="text-primary">900</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 20%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Top 5 Documentos Section -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-1">
+<h2 class="text-[#121617] dark:text-white text-lg font-bold">Top 5 Documentos</h2>
+<button class="text-primary text-sm font-bold">Ver todos</button>
+</div>
+<div class="flex flex-col bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-2 p-4 border-b border-gray-50 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
+<div class="col-span-7 text-[10px] font-bold uppercase tracking-wider text-gray-400">Documento</div>
+<div class="col-span-3 text-[10px] font-bold uppercase tracking-wider text-gray-400 text-center">Setor</div>
+<div class="col-span-2 text-[10px] font-bold uppercase tracking-wider text-gray-400 text-right">Dls</div>
+</div>
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-2 p-4 items-center border-b border-gray-50 dark:border-gray-800">
+<div class="col-span-7 flex flex-col">
+<span class="text-sm font-bold text-[#121617] dark:text-white truncate">Plano Anual 2024.pdf</span>
+</div>
+<div class="col-span-3 flex justify-center">
+<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">PED</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-xs font-bold text-primary">852</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-2 p-4 items-center border-b border-gray-50 dark:border-gray-800">
+<div class="col-span-7 flex flex-col">
+<span class="text-sm font-bold text-[#121617] dark:text-white truncate">Folha de Pagamento.xls</span>
+</div>
+<div class="col-span-3 flex justify-center">
+<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">FIN</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-xs font-bold text-primary">741</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-2 p-4 items-center border-b border-gray-50 dark:border-gray-800">
+<div class="col-span-7 flex flex-col">
+<span class="text-sm font-bold text-[#121617] dark:text-white truncate">Estatuto Escolar.docx</span>
+</div>
+<div class="col-span-3 flex justify-center">
+<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">JUR</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-xs font-bold text-primary">633</span>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 gap-2 p-4 items-center border-b border-gray-50 dark:border-gray-800">
+<div class="col-span-7 flex flex-col">
+<span class="text-sm font-bold text-[#121617] dark:text-white truncate">Formação Continuada.mp4</span>
+</div>
+<div class="col-span-3 flex justify-center">
+<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">PED</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-xs font-bold text-primary">521</span>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="grid grid-cols-12 gap-2 p-4 items-center">
+<div class="col-span-7 flex flex-col">
+<span class="text-sm font-bold text-[#121617] dark:text-white truncate">Regimento Interno.pdf</span>
+</div>
+<div class="col-span-3 flex justify-center">
+<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">ADM</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-xs font-bold text-primary">489</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- iOS Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-background-dark/90 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 px-6 py-3 pb-8 flex justify-between items-center">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined fill-1">dashboard</span>
+<span class="text-[10px] font-bold">Métricas</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">folder</span>
+<span class="text-[10px] font-bold">Docs</span>
+</button>
+<div class="flex flex-col items-center -mt-8">
+<button class="flex size-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/40 ring-4 ring-background-light dark:ring-background-dark">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<span class="text-[10px] font-bold text-primary mt-1">Upload</span>
+</div>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-[10px] font-bold">Setores</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Config</span>
+</button>
+</nav>
+<!-- Safe Area Indicator for iPhone Home Bar -->
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full mb-1"></div>
+</div>
+</body></html>

@@ -1,0 +1,187 @@
+<html class="light" lang="pt-BR"><head>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-light dark:bg-background-dark min-h-screen text-[#121617] dark:text-white">```html
+
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload de Novo Documento EduDocs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1f7693",
+                        "background-light": "#f9fafa",
+                        "background-dark": "#17191c",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Public Sans", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #dce2e4;
+            border-radius: 10px;
+        }
+    </style>
+<!-- Top Navigation Bar -->
+<div class="sticky top-0 z-50 flex items-center bg-white dark:bg-background-dark border-b border-[#dce2e4] dark:border-zinc-800 p-4 justify-between">
+<div class="text-primary flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10" data-icon="ArrowLeft">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h2 class="text-[#121617] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">EduDocs</h2>
+<div class="flex w-10 items-center justify-end">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
+<span class="material-symbols-outlined text-gray-500">more_vert</span>
+</button>
+</div>
+</div>
+<main class="max-w-md mx-auto pb-32">
+<!-- Headline Section -->
+<div class="px-4 pt-6 pb-2">
+<h1 class="text-2xl font-bold tracking-tight text-[#121617] dark:text-white">Novo Documento</h1>
+<p class="text-sm text-[#667d85] dark:text-zinc-400 mt-1">Preencha os dados abaixo para publicar no repositório.</p>
+</div>
+<!-- Section: Informações Básicas -->
+<div class="px-4 py-4 mt-2">
+<h3 class="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-primary pl-3">Informações Básicas</h3>
+<div class="space-y-4">
+<label class="flex flex-col w-full">
+<p class="text-[#121617] dark:text-zinc-200 text-sm font-semibold leading-normal pb-2">Título do Documento</p>
+<input class="form-input flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 h-14 placeholder:text-[#667d85] p-[15px] text-base font-normal leading-normal transition-all" placeholder="Ex: Plano de Ensino 2024" type="text"/>
+</label>
+<label class="flex flex-col w-full">
+<p class="text-[#121617] dark:text-zinc-200 text-sm font-semibold leading-normal pb-2">Descrição</p>
+<textarea class="form-input flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 min-h-32 placeholder:text-[#667d85] p-[15px] text-base font-normal leading-normal resize-none transition-all" placeholder="Breve resumo do conteúdo para facilitar a busca..."></textarea>
+</label>
+</div>
+</div>
+<!-- Section: Classificação -->
+<div class="px-4 py-4">
+<h3 class="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-primary pl-3">Classificação</h3>
+<div class="grid grid-cols-1 gap-4">
+<label class="flex flex-col w-full">
+<p class="text-[#121617] dark:text-zinc-200 text-sm font-semibold leading-normal pb-2">Setor Responsável</p>
+<div class="relative">
+<select class="form-select appearance-none w-full rounded-lg text-[#121617] dark:text-white focus:ring-2 focus:ring-primary/50 border border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 h-14 px-4 text-base font-normal transition-all">
+<option value="">Selecione o setor...</option>
+<option value="pedagogico">Pedagógico</option>
+<option value="administrativo">Administrativo</option>
+<option value="recursos_humanos">Recursos Humanos</option>
+<option value="financeiro">Financeiro</option>
+</select>
+</div>
+</label>
+<div class="grid grid-cols-2 gap-4">
+<label class="flex flex-col">
+<p class="text-[#121617] dark:text-zinc-200 text-sm font-semibold leading-normal pb-2">Modalidade</p>
+<select class="form-select w-full rounded-lg text-[#121617] dark:text-white focus:ring-2 focus:ring-primary/50 border border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 h-14 px-4 text-sm font-normal">
+<option value="presencial">Presencial</option>
+<option value="ead">EAD</option>
+<option value="hibrido">Híbrido</option>
+</select>
+</label>
+<label class="flex flex-col">
+<p class="text-[#121617] dark:text-zinc-200 text-sm font-semibold leading-normal pb-2">Tipo</p>
+<select class="form-select w-full rounded-lg text-[#121617] dark:text-white focus:ring-2 focus:ring-primary/50 border border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 h-14 px-4 text-sm font-normal">
+<option value="relatorio">Relatório</option>
+<option value="diretriz">Diretriz</option>
+<option value="ata">Ata</option>
+<option value="projeto">Projeto</option>
+</select>
+</label>
+</div>
+</div>
+</div>
+<!-- Section: Metadados -->
+<div class="px-4 py-4">
+<h3 class="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-primary pl-3">Metadados</h3>
+<label class="flex flex-col w-full">
+<p class="text-[#121617] dark:text-zinc-200 text-sm font-semibold leading-normal pb-2">Tags / Palavras-chave</p>
+<div class="flex flex-col bg-white dark:bg-zinc-900 border border-[#dce2e4] dark:border-zinc-700 rounded-lg p-3">
+<input class="w-full border-none focus:ring-0 p-0 text-base placeholder:text-[#667d85] dark:text-white bg-transparent" placeholder="Adicione tags separadas por vírgula..." type="text"/>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                            Ensino Médio <span class="material-symbols-outlined text-xs ml-1 cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                            BNCC <span class="material-symbols-outlined text-xs ml-1 cursor-pointer">close</span>
+</span>
+</div>
+</div>
+</label>
+</div>
+<!-- Section: Upload -->
+<div class="px-4 py-4">
+<h3 class="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-primary pl-3">Arquivo</h3>
+<div class="relative group cursor-pointer">
+<div class="flex flex-col items-center justify-center w-full min-h-[160px] rounded-xl border-2 border-dashed border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-primary/5 hover:border-primary transition-all p-6 text-center">
+<div class="size-14 bg-primary/10 rounded-full flex items-center justify-center mb-3 text-primary">
+<span class="material-symbols-outlined text-3xl">upload_file</span>
+</div>
+<p class="text-sm font-bold text-[#121617] dark:text-white mb-1">Selecione ou arraste o documento</p>
+<p class="text-xs text-[#667d85] dark:text-zinc-400">PDF, DOCX ou XLSX (Máx. 25MB)</p>
+</div>
+<input class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
+</div>
+</div>
+<!-- Section: Visibilidade -->
+<div class="px-4 py-4">
+<h3 class="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-primary pl-3">Visibilidade</h3>
+<div class="flex gap-3">
+<label class="flex-1 cursor-pointer group">
+<input checked="" class="peer hidden" name="visibilidade" type="radio" value="publico"/>
+<div class="flex flex-col items-center p-4 rounded-xl border border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-2xl mb-1 text-gray-400 group-hover:text-primary peer-checked:text-primary">public</span>
+<span class="text-sm font-medium text-gray-600 dark:text-zinc-300">Público</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer group">
+<input class="peer hidden" name="visibilidade" type="radio" value="interno"/>
+<div class="flex flex-col items-center p-4 rounded-xl border border-[#dce2e4] dark:border-zinc-700 bg-white dark:bg-zinc-900 peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-2xl mb-1 text-gray-400 group-hover:text-primary peer-checked:text-primary">lock_person</span>
+<span class="text-sm font-medium text-gray-600 dark:text-zinc-300">Interno</span>
+</div>
+</label>
+</div>
+</div>
+</main>
+<!-- Fixed Action Buttons at Bottom -->
+<div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-[#dce2e4] dark:border-zinc-800 p-4 pb-8 safe-area-inset-bottom flex flex-col gap-3 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-14 rounded-xl flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">publish</span>
+            Publicar Documento
+        </button>
+<button class="w-full bg-transparent border border-[#dce2e4] dark:border-zinc-700 text-[#121617] dark:text-white font-semibold h-12 rounded-xl flex items-center justify-center gap-2 transition-colors hover:bg-gray-50 dark:hover:bg-zinc-800">
+<span class="material-symbols-outlined">save</span>
+            Salvar como Rascunho
+        </button>
+</div>
+</body></html><!-- Layout focused on iOS form factor, ensuring clarity, logical grouping, and accessible touch targets for a professional educational repository application. -->

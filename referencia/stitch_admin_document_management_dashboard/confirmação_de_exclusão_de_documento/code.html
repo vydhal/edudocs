@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d5a76",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#141a1e",
+                        "danger": "#E74C3C",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-hidden">
+<!-- Background Layer: Document Management List (EduDocs) -->
+<div class="flex flex-col w-full h-full opacity-40 pointer-events-none">
+<!-- TopAppBar Component -->
+<div class="flex items-center bg-white dark:bg-background-dark p-4 pb-2 justify-between">
+<div class="text-[#131516] dark:text-white flex size-12 shrink-0 items-center">
+<span class="material-symbols-outlined">menu</span>
+</div>
+<h2 class="text-[#131516] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">EduDocs</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex items-center justify-center rounded-lg h-12 bg-transparent text-[#131516] dark:text-white">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+<div class="px-4 py-2">
+<h3 class="text-[#131516] dark:text-white text-xl font-bold py-4">Repositório Central</h3>
+</div>
+<!-- List Items -->
+<div class="flex flex-col">
+<!-- ListItem 1 -->
+<div class="flex items-center gap-4 bg-white dark:bg-slate-800 px-4 min-h-[72px] py-2 justify-between border-b border-gray-100 dark:border-gray-700">
+<div class="flex items-center gap-4">
+<div class="text-[#131516] dark:text-white flex items-center justify-center rounded-lg bg-[#f1f3f3] dark:bg-slate-700 shrink-0 size-12">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#131516] dark:text-white text-base font-medium leading-normal line-clamp-1">Plano_Educacional_2024.pdf</p>
+<p class="text-[#6b7880] dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2">Adicionado em 10/10/2023 • 2.4 MB</p>
+</div>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-danger">delete</span>
+</div>
+</div>
+<!-- ListItem 2 -->
+<div class="flex items-center gap-4 bg-white dark:bg-slate-800 px-4 min-h-[72px] py-2 justify-between border-b border-gray-100 dark:border-gray-700">
+<div class="flex items-center gap-4">
+<div class="text-[#131516] dark:text-white flex items-center justify-center rounded-lg bg-[#f1f3f3] dark:bg-slate-700 shrink-0 size-12">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#131516] dark:text-white text-base font-medium leading-normal line-clamp-1">Relatorio_Financeiro_Q3.pdf</p>
+<p class="text-[#6b7880] dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2">Adicionado em 15/09/2023 • 1.1 MB</p>
+</div>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-danger">delete</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Overlay for Modal -->
+<div class="fixed inset-0 z-40 bg-black/50 flex items-center justify-center p-6 backdrop-blur-sm">
+<!-- Modal Container -->
+<div class="w-full max-w-sm bg-white dark:bg-[#1f2937] rounded-xl shadow-2xl overflow-hidden flex flex-col">
+<!-- BottomSheetHandle look-alike for iOS feel -->
+<div class="flex w-full items-center justify-center pt-3 pb-1">
+<div class="h-1 w-10 rounded-full bg-[#dee1e3] dark:bg-gray-600"></div>
+</div>
+<!-- HeadlineText -->
+<div class="px-6 pt-4 text-center">
+<h3 class="text-[#131516] dark:text-white tracking-tight text-2xl font-bold leading-tight">Confirmar Exclusão</h3>
+</div>
+<!-- Modal Content -->
+<div class="px-6 py-4">
+<p class="text-[#6b7880] dark:text-gray-300 text-base leading-relaxed text-center mb-6">
+                        Esta ação é <span class="font-bold text-gray-800 dark:text-white">permanente</span> e irreversível. Ao excluir este arquivo, ele deixará de estar disponível para consulta pública no repositório do <span class="text-primary font-semibold">EduDocs</span>.
+                    </p>
+<!-- Document Preview Area -->
+<div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 mb-8 flex items-center gap-3 border border-gray-100 dark:border-gray-700">
+<span class="material-symbols-outlined text-primary">article</span>
+<span class="text-[#131516] dark:text-white font-medium truncate">Relatorio_Financeiro_Q3.pdf</span>
+</div>
+<!-- Action Footer -->
+<div class="flex flex-col gap-3">
+<button class="w-full bg-danger hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-sm transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">delete_forever</span>
+                            Excluir Documento
+                        </button>
+<button class="w-full bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-[#6b7880] dark:text-gray-400 font-bold py-4 rounded-xl transition-colors">
+                            Cancelar
+                        </button>
+</div>
+</div>
+<!-- Bottom safety margin for iOS home indicator -->
+<div class="h-4 bg-white dark:bg-[#1f2937]"></div>
+</div>
+</div>
+</div>
+</body></html>

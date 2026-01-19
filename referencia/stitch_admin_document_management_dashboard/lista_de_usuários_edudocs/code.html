@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lista de Usuários EduDocs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2f8598",
+                        "background-light": "#f0f2f4",
+                        "background-dark": "#16191d",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .status-pill {
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#121617] dark:text-white min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col max-w-md mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center p-4 justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-size: 32px;">description</span>
+<h1 class="text-[#121617] dark:text-white text-xl font-extrabold leading-tight tracking-tight">EduDocs</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-[#121617] dark:text-white">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white font-bold" data-alt="Avatar do administrador logado">
+                        AD
+                    </div>
+</div>
+</div>
+<div class="px-4 pb-4">
+<div class="flex items-center justify-between gap-4">
+<h2 class="text-[#121617] dark:text-white text-lg font-bold">Gestão de Usuários</h2>
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-sm active:scale-95 transition-transform">
+<span>+ Novo Usuário</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 pb-20">
+<!-- SearchBar -->
+<div class="px-4 py-4">
+<label class="flex flex-col w-full">
+<div class="flex w-full items-stretch rounded-xl h-12 bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+<div class="text-gray-400 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full border-none bg-transparent focus:ring-0 text-[#121617] dark:text-white placeholder:text-gray-400 px-3 text-base" placeholder="Buscar por nome ou e-mail..."/>
+<button class="px-4 text-primary">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</label>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 px-4 pb-4 overflow-x-auto no-scrollbar">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-1 rounded-full bg-primary text-white px-4 text-sm font-semibold">
+                    Todos
+                </button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-1 rounded-full bg-white dark:bg-gray-800 text-[#121617] dark:text-white px-4 text-sm font-medium border border-gray-100 dark:border-gray-700">
+                    Admin <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-1 rounded-full bg-white dark:bg-gray-800 text-[#121617] dark:text-white px-4 text-sm font-medium border border-gray-100 dark:border-gray-700">
+                    Ativo <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+</div>
+<!-- List Section -->
+<div class="px-4 space-y-3">
+<!-- ListItem: User 1 -->
+<div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3">
+<div class="h-12 w-12 rounded-full bg-cover bg-center border-2 border-primary/20" data-alt="Foto de perfil de Ana Silva" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCiX5vzTcomM0VyEibbTLvu3bewtiS9JYEpupnTdL77AElFVFkvJ3KgAXHZ82qFcZVpP5fcdFV5c123Fa9U2HjenMGn3GAADXCvod5RJEI7758xS6wvMGbzDheOiZ_bdgHIRnHEkvtT_JuwFjxzWhG0sDNCC559CBRmORvUI_UzJ-rsdF5BQYUr8BHWmRL4lQxYz1Ipr3gOX9SlM4krIf2Z1jax-ug4M9ISREEI4iGb5DWdFkmAAFF0mssRdGUCHbnzltOhvSBoKP7z");'></div>
+<div>
+<h3 class="text-[#121617] dark:text-white font-bold text-base">Ana Silva</h3>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium">ana.silva@educacao.gov.br</p>
+</div>
+</div>
+<span class="status-pill bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Ativo</span>
+</div>
+<div class="grid grid-cols-2 gap-2 mb-4">
+<div class="bg-background-light dark:bg-gray-700/50 p-2 rounded-lg">
+<p class="text-[10px] uppercase text-gray-400 font-bold">Setor</p>
+<p class="text-sm font-semibold text-gray-700 dark:text-gray-200">Recursos Humanos</p>
+</div>
+<div class="bg-background-light dark:bg-gray-700/50 p-2 rounded-lg">
+<p class="text-[10px] uppercase text-gray-400 font-bold">Nível</p>
+<p class="text-sm font-semibold text-gray-700 dark:text-gray-200">Administrador</p>
+</div>
+</div>
+<div class="flex border-t border-gray-50 dark:border-gray-700 pt-3 gap-3">
+<button class="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+<span class="material-symbols-outlined text-[18px]">edit</span> Editar
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-red-50 text-red-600 font-bold text-sm">
+<span class="material-symbols-outlined text-[18px]">person_off</span> Desativar
+                        </button>
+</div>
+</div>
+<!-- ListItem: User 2 -->
+<div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3">
+<div class="h-12 w-12 rounded-full bg-cover bg-center border-2 border-primary/20" data-alt="Foto de perfil de Ricardo Lima" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC7p9rcazAgeFJ5mgziuk5Y0WGbgKVQ77w4I7IUYlXNx5z-i1-oflbVmcpo9_e6SoxjD0JzL0NE8dFaKhfEkTz-JTUkRy9PpZ9f1dIZaI6Yo5c13p72cY0Y4SSdv-8EbfMt3ktWxJl-ch1S130F1fhq2bpZ8kaOcM08sV_5hsEw-hLHR4Q2pi3MnpVl7z8HzlpLDFiUjF6X7CXMmV28XZwlq4qb1noLClghy43O0VumuZ9v6YF3XOyQVVBLyUt8YNvhfmE2_RYP1gFD");'></div>
+<div>
+<h3 class="text-[#121617] dark:text-white font-bold text-base">Ricardo Lima</h3>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium">ricardo.lima@educacao.gov.br</p>
+</div>
+</div>
+<span class="status-pill bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Ativo</span>
+</div>
+<div class="grid grid-cols-2 gap-2 mb-4">
+<div class="bg-background-light dark:bg-gray-700/50 p-2 rounded-lg">
+<p class="text-[10px] uppercase text-gray-400 font-bold">Setor</p>
+<p class="text-sm font-semibold text-gray-700 dark:text-gray-200">Pedagógico</p>
+</div>
+<div class="bg-background-light dark:bg-gray-700/50 p-2 rounded-lg">
+<p class="text-[10px] uppercase text-gray-400 font-bold">Nível</p>
+<p class="text-sm font-semibold text-gray-700 dark:text-gray-200">Editor</p>
+</div>
+</div>
+<div class="flex border-t border-gray-50 dark:border-gray-700 pt-3 gap-3">
+<button class="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+<span class="material-symbols-outlined text-[18px]">edit</span> Editar
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-red-50 text-red-600 font-bold text-sm">
+<span class="material-symbols-outlined text-[18px]">person_off</span> Desativar
+                        </button>
+</div>
+</div>
+<!-- ListItem: User 3 -->
+<div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 opacity-75">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3">
+<div class="h-12 w-12 rounded-full bg-cover bg-center border-2 border-gray-200" data-alt="Foto de perfil de Marina Torres" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMAz3-_7GKA2cPXLTf_zHRDxWk3rcSNKeY8-wuu0I_v8x3pSqefQ8aT7rAhki5iMZ4wSvjjBSFXgBzc4G763fOfCbsaW6nOt3iEmBbPAEFQEdiokwQ5j0-vWGoi5T_BrzAhPeh8f-lUfxvsKwUS6kqTdfwFtwS_uHqd3FKiNEsm_IZrOd1aidkgTIcl3pn5dnsm0zDSYVyo_uvbiFtYUeHEG7ukvS7MUTHlebSp2yI6tWE3DbrXrYjCKAc28e4F5hD2RvLa0lUxDYC");'></div>
+<div>
+<h3 class="text-[#121617] dark:text-white font-bold text-base">Marina Torres</h3>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium">marina.torres@educacao.gov.br</p>
+</div>
+</div>
+<span class="status-pill bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400">Inativo</span>
+</div>
+<div class="grid grid-cols-2 gap-2 mb-4">
+<div class="bg-background-light dark:bg-gray-700/50 p-2 rounded-lg">
+<p class="text-[10px] uppercase text-gray-400 font-bold">Setor</p>
+<p class="text-sm font-semibold text-gray-700 dark:text-gray-200">Financeiro</p>
+</div>
+<div class="bg-background-light dark:bg-gray-700/50 p-2 rounded-lg">
+<p class="text-[10px] uppercase text-gray-400 font-bold">Nível</p>
+<p class="text-sm font-semibold text-gray-700 dark:text-gray-200">Editor</p>
+</div>
+</div>
+<div class="flex border-t border-gray-50 dark:border-gray-700 pt-3 gap-3">
+<button class="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+<span class="material-symbols-outlined text-[18px]">edit</span> Editar
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-green-50 text-green-600 font-bold text-sm">
+<span class="material-symbols-outlined text-[18px]">person_check</span> Ativar
+                        </button>
+</div>
+</div>
+</div>
+<!-- List Footer Info -->
+<div class="p-6 text-center">
+<p class="text-gray-400 text-xs font-medium">Exibindo 3 de 142 usuários</p>
+<button class="mt-2 text-primary text-sm font-bold flex items-center justify-center gap-1 mx-auto">
+                    Carregar mais <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Native feel) -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 h-16 flex items-center justify-around px-6">
+<button class="flex flex-col items-center text-gray-400">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold">Início</span>
+</button>
+<button class="flex flex-col items-center text-gray-400">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="text-[10px] font-bold">Documentos</span>
+</button>
+<button class="flex flex-col items-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">group</span>
+<span class="text-[10px] font-bold">Usuários</span>
+</button>
+<button class="flex flex-col items-center text-gray-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Ajustes</span>
+</button>
+</nav>
+</div>
+</body></html>

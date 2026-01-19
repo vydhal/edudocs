@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # 1. Backend API
+  backend:
+    image: vydhal/edudocs-backend:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        # Define a rede que o Traefik deve usar para alcançar este container
+        - "traefik.docker.network=SimpliSoft"
+        # Rota para API e Uploads (Mesmo domínio, filtrando por Path)
+        - "traefik.http.routers.edudocs-backend.rule=Host(`edudocs.simplisoft.com.br`) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))"
+        - "traefik.http.routers.edudocs-backend.entrypoints=websecure"
+        - "traefik.http.routers.edudocs-backend.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.edudocs-backend.loadbalancer.server.port=3001"
+    environment:
+      # Conecta ao Postgres usando o nome do serviço na rede interna
+      DATABASE_URL: postgresql://admin:EduDocs_Secure_DB_Pass_2026@postgres:5432/edudocs?schema=public
+      PORT: 3001
+      JWT_SECRET: EduDocs_JWT_Secure_Token_v1
+    depends_on:
+      - postgres
+    volumes:
+      - edudocs_uploads:/app/uploads
+    networks:
+      - SimpliSoft # Para falar com o Traefik
+      - edudocs-internal # Para falar com o Postgres
+
+  # 2. Frontend
+  frontend:
+    image: vydhal/edudocs-frontend:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=SimpliSoft"
+        # Rota Raiz (Frontend)
+        - "traefik.http.routers.edudocs-frontend.rule=Host(`edudocs.simplisoft.com.br`)"
+        - "traefik.http.routers.edudocs-frontend.entrypoints=websecure"
+        - "traefik.http.routers.edudocs-frontend.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.edudocs-frontend.loadbalancer.server.port=80"
+    networks:
+      - SimpliSoft
+
+  # 3. Banco de Dados
+  postgres:
+    image: postgres:15-alpine
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [ node.role == manager ] # Recomendado para persistência
+      restart_policy:
+        condition: on-failure
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: EduDocs_Secure_DB_Pass_2026
+      POSTGRES_DB: edudocs
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - edudocs-internal # Apenas rede interna, seguro.
+
+volumes:
+  postgres_data:
+  edudocs_uploads:
+
+
+networks:
+  # Rede pública existente no Swarm (onde o Traefik está)
+  SimpliSoft:
+    external: true
+  # Rede interna para comunicação Backend <-> DB
+  edudocs-internal:
+    driver: overlay
+    attachable: true

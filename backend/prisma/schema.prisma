@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  avatarUrl String?  
+  role      Role     @default(VIEWER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  documents Document[]
+}
+
+model Document {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  fileUrl     String
+  version     Int      @default(1)
+  downloads   Int      @default(0)
+  status      String   @default("draft") // draft, published, archived
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+  parentId    Int?
+  parent      Document? @relation("DocumentHistory", fields: [parentId], references: [id])
+  children    Document[] @relation("DocumentHistory")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  type        String   @default("PDF") // PDF, DOCX, XLSX, PPT
+  sectorId    Int?
+  sector      Sector?  @relation(fields: [sectorId], references: [id])
+  modalityId  Int?
+  modality    Modality? @relation(fields: [modalityId], references: [id])
+}
+
+model Sector {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  documents Document[]
+}
+
+model Modality {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  documents Document[]
+}
+
+model Setting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
+}

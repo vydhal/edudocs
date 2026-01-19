@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Meus Documentos - Painel do Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2f8598",
+                        "background-light": "#f9fafb",
+                        "background-dark": "#171a1c",
+                        "status-green": "#4CAF50",
+                        "status-amber": "#FFC107",
+                        "status-blue": "#03A9F4",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .ios-tab-bar {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .status-pill {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#121617] dark:text-gray-100 min-h-screen pb-24">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-center p-4 justify-between max-w-lg mx-auto">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800">
+<span class="material-symbols-outlined text-[#121617] dark:text-white">menu</span>
+</div>
+<h2 class="text-[#121617] dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center font-display">EduDocs Editor</h2>
+<div class="flex w-10 items-center justify-end">
+<button class="relative flex size-10 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800">
+<span class="material-symbols-outlined text-[#121617] dark:text-white">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-lg mx-auto px-4 pt-6">
+<!-- Welcome Section -->
+<div class="mb-6">
+<h1 class="text-2xl font-extrabold tracking-tight text-[#121617] dark:text-white">Meus Documentos</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Gerencie seu repositório pessoal de arquivos.</p>
+</div>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="flex flex-col gap-2 rounded-2xl p-5 bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">upload_file</span>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider">Total de Envios</p>
+<p class="text-[#121617] dark:text-white text-3xl font-extrabold leading-none mt-1">48</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-2xl p-5 bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-green-500">check_circle</span>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider">Documentos Ativos</p>
+<p class="text-[#121617] dark:text-white text-3xl font-extrabold leading-none mt-1">32</p>
+</div>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="mb-6">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-11 pr-4 py-3.5 bg-white dark:bg-gray-800 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-primary/20 shadow-sm transition-all placeholder:text-gray-400" placeholder="Filtrar por título ou status..." type="text"/>
+</div>
+</div>
+<!-- List Header -->
+<div class="flex items-center justify-between mb-4 px-1">
+<h3 class="text-[#121617] dark:text-white text-md font-bold leading-tight">Arquivos Recentes</h3>
+<button class="text-primary text-sm font-bold flex items-center gap-1">
+                Ver Todos <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<!-- Document Cards List -->
+<div class="space-y-4">
+<!-- Card 1: Publicado -->
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex justify-between items-start mb-3">
+<span class="status-pill px-2 py-1 rounded-md bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Publicado</span>
+<span class="text-gray-400 text-xs font-medium">12 Out 2023</span>
+</div>
+<h4 class="text-[#121617] dark:text-white text-base font-bold mb-3">Diretrizes Curriculares 2024 - Ensino Médio</h4>
+<div class="flex items-center gap-4 text-gray-500 dark:text-gray-400 text-xs mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">visibility</span>
+<span>1.2k visualizações</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">history</span>
+<span>v2.4</span>
+</div>
+</div>
+<div class="flex gap-2 pt-3 border-t border-gray-50 dark:border-gray-700">
+<button class="flex-1 bg-primary text-white py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">edit</span> Editar
+                    </button>
+<button class="flex-1 bg-primary/10 text-primary py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">history_edu</span> Histórico
+                    </button>
+</div>
+</div>
+<!-- Card 2: Em Revisão -->
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex justify-between items-start mb-3">
+<span class="status-pill px-2 py-1 rounded-md bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Em Revisão</span>
+<span class="text-gray-400 text-xs font-medium">Hoje, 09:15</span>
+</div>
+<h4 class="text-[#121617] dark:text-white text-base font-bold mb-3">Manual do Coordenador Pedagógico v2</h4>
+<div class="flex items-center gap-4 text-gray-500 dark:text-gray-400 text-xs mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">visibility</span>
+<span>0 visualizações</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">person</span>
+<span>Aguardando Aprovação</span>
+</div>
+</div>
+<div class="flex gap-2 pt-3 border-t border-gray-50 dark:border-gray-700">
+<button class="flex-1 bg-primary text-white py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">edit</span> Editar
+                    </button>
+<button class="flex-1 bg-primary/10 text-primary py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">history_edu</span> Histórico
+                    </button>
+</div>
+</div>
+<!-- Card 3: Rascunho -->
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex justify-between items-start mb-3">
+<span class="status-pill px-2 py-1 rounded-md bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Rascunho</span>
+<span class="text-gray-400 text-xs font-medium">05 Out 2023</span>
+</div>
+<h4 class="text-[#121617] dark:text-white text-base font-bold mb-3">Planejamento Estratégico Q4</h4>
+<div class="flex items-center gap-4 text-gray-500 dark:text-gray-400 text-xs mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">visibility</span>
+<span>-</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span>Privado</span>
+</div>
+</div>
+<div class="flex gap-2 pt-3 border-t border-gray-50 dark:border-gray-700">
+<button class="flex-1 bg-primary text-white py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">edit</span> Editar
+                    </button>
+<button class="flex-1 bg-primary/10 text-primary py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">history_edu</span> Histórico
+                    </button>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<div class="fixed bottom-24 right-6">
+<button class="size-14 rounded-full bg-primary text-white shadow-lg shadow-primary/40 flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</main>
+<!-- iOS Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 ios-tab-bar bg-white/80 dark:bg-background-dark/80 border-t border-gray-100 dark:border-gray-800 pb-8 pt-3">
+<div class="max-w-lg mx-auto flex justify-around items-center px-4">
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-[10px] font-bold">Início</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1">description</span>
+<span class="text-[10px] font-bold">Meus Docs</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">analytics</span>
+<span class="text-[10px] font-bold">Relatórios</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+<span class="text-[10px] font-bold">Perfil</span>
+</a>
+</div>
+</nav>
+</body></html>

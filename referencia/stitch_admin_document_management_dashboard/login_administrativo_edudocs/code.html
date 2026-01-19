@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2966a3",
+                        "background-light": "#f1f2f4",
+                        "background-dark": "#16191d",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col items-center justify-center p-4">
+<!-- Top Navigation / Logo Area -->
+<div class="w-full max-w-[400px] mb-8 flex flex-col items-center">
+<div class="flex items-center justify-center mb-4">
+<div class="bg-primary rounded-xl p-3 shadow-lg">
+<span class="material-symbols-outlined text-white text-4xl">menu_book</span>
+</div>
+</div>
+<h1 class="text-[#121417] dark:text-white text-3xl font-bold tracking-tight text-center">EduDocs</h1>
+<p class="text-[#677583] dark:text-gray-400 text-sm font-medium mt-1 uppercase tracking-widest">Secretaria de Educação</p>
+</div>
+<!-- Login Card -->
+<div class="w-full max-w-[400px] bg-white dark:bg-[#1e2227] rounded-xl shadow-xl border border-[#dde0e4] dark:border-[#2d333a] overflow-hidden">
+<!-- Header Image (Subtle pattern) -->
+<div class="w-full h-32 bg-primary/10 flex items-center justify-center relative overflow-hidden">
+<!-- Decorative geometric shapes for a clean "edu" feel -->
+<div class="absolute -top-4 -left-4 w-24 h-24 bg-primary/20 rounded-full"></div>
+<div class="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/10 rounded-full"></div>
+<div class="relative z-10 text-center">
+<h2 class="text-[#121417] dark:text-white text-xl font-bold px-4">Login Administrativo</h2>
+<div class="h-1 w-12 bg-primary mx-auto mt-2 rounded-full"></div>
+</div>
+</div>
+<form class="p-6 space-y-4" onsubmit="return false;">
+<!-- Email Field -->
+<div class="flex flex-col gap-2">
+<label class="text-[#121417] dark:text-white text-sm font-semibold leading-normal">E-mail</label>
+<div class="flex w-full items-stretch rounded-lg group">
+<div class="flex items-center justify-center pl-4 bg-white dark:bg-[#252a31] border border-[#dde0e4] dark:border-[#3a424b] border-r-0 rounded-l-lg text-[#677583]">
+<span class="material-symbols-outlined text-[20px]">alternate_email</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#121417] dark:text-white focus:outline-0 focus:ring-0 border border-[#dde0e4] dark:border-[#3a424b] bg-white dark:bg-[#252a31] focus:border-primary h-12 placeholder:text-[#677583] p-3 rounded-l-none text-base font-normal" placeholder="nome@edu.gov.br" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-2">
+<label class="text-[#121417] dark:text-white text-sm font-semibold leading-normal">Senha</label>
+<div class="flex w-full items-stretch rounded-lg group">
+<div class="flex items-center justify-center pl-4 bg-white dark:bg-[#252a31] border border-[#dde0e4] dark:border-[#3a424b] border-r-0 rounded-l-lg text-[#677583]">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#121417] dark:text-white focus:outline-0 focus:ring-0 border border-[#dde0e4] dark:border-[#3a424b] bg-white dark:bg-[#252a31] focus:border-primary h-12 placeholder:text-[#677583] p-3 rounded-l-none text-base font-normal" placeholder="Digite sua senha" type="password"/>
+</div>
+</div>
+<!-- Remember & Forgot -->
+<div class="flex items-center justify-between py-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 rounded border-[#dde0e4] text-primary focus:ring-primary/50 transition-colors" type="checkbox"/>
+<span class="text-sm text-[#677583] dark:text-gray-400 font-medium group-hover:text-primary">Lembrar de mim</span>
+</label>
+<a class="text-sm font-semibold text-primary hover:underline underline-offset-4" href="#">Esqueci minha senha</a>
+</div>
+<!-- Login Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 px-4 rounded-lg shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-2" type="submit">
+<span>Acessar</span>
+<span class="material-symbols-outlined text-[20px]">login</span>
+</button>
+</form>
+<!-- Footer Help -->
+<div class="bg-gray-50 dark:bg-[#16191d] p-4 text-center border-t border-[#dde0e4] dark:border-[#2d333a]">
+<p class="text-xs text-[#677583] dark:text-gray-500">
+                Problemas de acesso? Contate o <a class="text-primary font-semibold hover:underline" href="#">suporte técnico</a>.
+            </p>
+</div>
+</div>
+<!-- Background Decoration (Soft elements) -->
+<div class="fixed bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-primary/5 to-transparent -z-10 pointer-events-none"></div>
+<div class="fixed top-12 left-12 opacity-10 pointer-events-none -z-10">
+<span class="material-symbols-outlined text-[120px] text-primary">school</span>
+</div>
+<p class="mt-8 text-xs text-[#677583] dark:text-gray-500 font-medium">
+        © 2024 EduDocs · Gestão de Documentos v1.0.4
+    </p>
+</body></html>

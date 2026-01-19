@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1f7693",
+                        "background-light": "#f7f7f8",
+                        "background-dark": "#21262c",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .ios-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#121617] dark:text-gray-100 min-h-screen">
+<div class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center p-4 justify-between max-w-lg mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#121617] dark:text-white">arrow_back_ios</span>
+<h1 class="text-lg font-bold tracking-tight">Configurações e White Label</h1>
+</div>
+<button class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-primary">done</span>
+</button>
+</div>
+</div>
+<main class="max-w-lg mx-auto pb-24">
+<div class="p-4">
+<div class="flex p-1 bg-gray-200/50 dark:bg-gray-800 rounded-xl">
+<button class="flex-1 py-2 px-4 rounded-lg bg-white dark:bg-gray-700 shadow-sm text-sm font-semibold text-[#121617] dark:text-white transition-all">
+                    Identidade Visual
+                </button>
+<button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 transition-all">
+                    Gestão de Usuários
+                </button>
+</div>
+</div>
+<div class="px-4 py-2">
+<h3 class="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-3 ml-1">Identidade Visual</h3>
+<div class="bg-white dark:bg-gray-900 rounded-xl p-4 ios-shadow mb-4 border border-gray-100 dark:border-gray-800">
+<div class="flex items-start gap-4">
+<div class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-gray-400">
+<span class="material-symbols-outlined text-2xl">image</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-[#121617] dark:text-white mb-1">Upload de Logo</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Formatos: SVG ou PNG transparente (Máx 2MB)</p>
+<button class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm font-semibold">
+<span class="material-symbols-outlined text-sm">cloud_upload</span>
+                            Fazer Upload
+                        </button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-900 rounded-xl p-4 ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-bold text-[#121617] dark:text-white mb-1">Ícone (Favicon)</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Visível na aba do navegador</p>
+</div>
+<div class="size-10 bg-primary/20 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">school</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 py-6">
+<h3 class="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-3 ml-1">Configurações de Tema</h3>
+<div class="bg-white dark:bg-gray-900 rounded-xl overflow-hidden ios-shadow border border-gray-100 dark:border-gray-800">
+<div class="p-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary border-2 border-white dark:border-gray-700 shadow-sm"></div>
+<div>
+<p class="text-sm font-semibold text-[#121617] dark:text-white">Seletor de Cor</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">Aplica-se a botões e links</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-mono text-gray-400">#1F7693</span>
+<span class="material-symbols-outlined text-gray-300">chevron_right</span>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold text-[#121617] dark:text-white">Modo Escuro Automático</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">Adapta a interface conforme o sistema</p>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative flex items-center px-1">
+<div class="size-4 bg-white rounded-full absolute right-1"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 py-2">
+<div class="flex justify-between items-end mb-3 ml-1">
+<h3 class="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">Gestão de Usuários</h3>
+<span class="text-xs text-primary font-bold">Ver todos</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3 p-3 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="size-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-gray-500 text-xs">
+                        AM
+                    </div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#121617] dark:text-white leading-tight">Nome do Usuário</p>
+<p class="text-[10px] text-gray-500 dark:text-gray-400">Ana Maria Silva • Nível de Acesso: Administradora</p>
+</div>
+<button class="text-gray-400">
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</button>
+</div>
+<div class="flex items-center gap-3 p-3 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm opacity-80">
+<div class="size-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-gray-500 text-xs">
+                        RC
+                    </div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#121617] dark:text-white leading-tight">Ricardo Costa</p>
+<p class="text-[10px] text-gray-500 dark:text-gray-400">Editor • Nível de Acesso: Diretor de TI</p>
+</div>
+<button class="text-gray-400">
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-background-dark/90 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 p-4 safe-area-bottom">
+<div class="max-w-lg mx-auto flex gap-3">
+<button class="flex-1 h-12 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-xl">save</span>
+                Salvar Alterações
+            </button>
+<button class="size-12 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-xl flex items-center justify-center active:scale-95 transition-transform group" title="Novo Usuário">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+</div>
+</div>
+<div class="fixed bottom-24 right-4">
+<button class="size-10 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-100 dark:border-gray-700 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+</button>
+</div>
+
+</body></html>
