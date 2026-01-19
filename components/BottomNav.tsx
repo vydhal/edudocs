@@ -55,7 +55,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
             {logoUrl ? (
                 <img src={`http://localhost:3001${logoUrl}`} alt="EduDocs Logo" className="h-10 w-auto object-contain" />
             ) : (
-                <div className="bg-[#1f7693] text-white p-1 rounded-xl flex items-center justify-center size-12 shadow-sm shadow-[#1f7693]/20">
+                <div className="bg-[var(--primary-color)] text-white p-1 rounded-xl flex items-center justify-center size-12 shadow-sm shadow-[var(--primary-color)]/20">
                     <span className="material-symbols-outlined text-3xl">archive</span>
                 </div>
             )}
@@ -73,7 +73,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
                         className="size-10 rounded-full object-cover shadow-md border-2 border-white dark:border-gray-700"
                     />
                 ) : (
-                    <div className="size-10 rounded-full bg-[#1f7693] text-white flex items-center justify-center font-bold text-base shadow-md">{initials}</div>
+                    <div className="size-10 rounded-full bg-[var(--primary-color)] text-white flex items-center justify-center font-bold text-base shadow-md">{initials}</div>
                 )}
                 <span className="text-lg font-semibold text-gray-700 dark:text-gray-300 max-w-[140px] truncate">{user.name?.split(' ')[0] || 'Usuário'}</span>
                 <span className="material-symbols-outlined text-gray-400 text-xl">expand_more</span>

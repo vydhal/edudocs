@@ -140,7 +140,7 @@ const AdminDocuments: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div className="flex flex-col gap-2 rounded-2xl p-5 bg-white dark:bg-[#1e2329] shadow-sm border border-gray-100 dark:border-gray-800">
                         <div className="flex items-center justify-between">
-                            <span className="material-symbols-outlined text-[#2f8598] dark:text-[#5ab2d1]">upload_file</span>
+                            <span className="material-symbols-outlined text-[var(--primary-color)] dark:text-[var(--primary-color)]">upload_file</span>
                         </div>
                         <div>
                             <p className="text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider">Total de Envios</p>
@@ -161,15 +161,15 @@ const AdminDocuments: React.FC = () => {
                 <div className="mb-6">
                     <div className="relative group">
                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <span className="material-symbols-outlined text-gray-400 group-focus-within:text-[#2f8598] dark:group-focus-within:text-[#5ab2d1] transition-colors">search</span>
+                            <span className="material-symbols-outlined text-gray-400 group-focus-within:text-[var(--primary-color)] dark:group-focus-within:text-[var(--primary-color)] transition-colors">search</span>
                         </div>
-                        <input className="block w-full pl-11 pr-4 py-3.5 bg-white dark:bg-[#1e2329] border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-[#2f8598]/20 dark:focus:ring-[#5ab2d1]/20 shadow-sm transition-all placeholder:text-gray-400 text-[#121617] dark:text-white" placeholder="Filtrar por título ou status..." type="text" />
+                        <input className="block w-full pl-11 pr-4 py-3.5 bg-white dark:bg-[#1e2329] border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-[var(--primary-color)]/20 dark:focus:ring-[var(--primary-color)]/20 shadow-sm transition-all placeholder:text-gray-400 text-[#121617] dark:text-white" placeholder="Filtrar por título ou status..." type="text" />
                     </div>
                 </div>
 
                 <div className="flex items-center justify-between mb-4 px-1">
                     <h3 className="text-[#121617] dark:text-white text-md font-bold leading-tight">Arquivos Recentes / Ativos</h3>
-                    <button className="text-[#2f8598] dark:text-[#5ab2d1] text-sm font-bold flex items-center gap-1">
+                    <button className="text-[var(--primary-color)] dark:text-[var(--primary-color)] text-sm font-bold flex items-center gap-1">
                         Ver Todos <span className="material-symbols-outlined text-sm">chevron_right</span>
                     </button>
                 </div>
@@ -185,7 +185,7 @@ const AdminDocuments: React.FC = () => {
                             return true;
                         })
                         .map(doc => (
-                        <div key={doc.id} className="bg-white dark:bg-[#1e2329] rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-[#2f8598] transition-colors">
+                        <div key={doc.id} className="bg-white dark:bg-[#1e2329] rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-[var(--primary-color)] transition-colors">
                             <div className="flex justify-between items-start mb-3">
                                 <span className={`px-2 py-1 rounded-md text-[0.7rem] uppercase font-bold tracking-wider ${doc.status === 'published' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'}`}>
                                     {doc.status === 'published' ? 'Publicado' : 'Rascunho'}
@@ -209,10 +209,10 @@ const AdminDocuments: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex gap-2 pt-3 border-t border-gray-50 dark:border-gray-800">
-                                <button onClick={() => handleEditClick(doc)} className="flex-1 bg-[#2f8598] dark:bg-[#2f8598] text-white py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#2f8598]/90">
+                                <button onClick={() => handleEditClick(doc)} className="flex-1 bg-[var(--primary-color)] dark:bg-[var(--primary-color)] text-white py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:opacity-90">
                                     <span className="material-symbols-outlined text-sm">edit</span> Editar
                                 </button>
-                                <button onClick={() => navigate(`/document/${doc.id}/versions`)} className="flex-1 bg-[#2f8598]/10 dark:bg-[#2f8598]/20 text-[#2f8598] dark:text-[#5ab2d1] py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#2f8598]/20">
+                                <button onClick={() => navigate(`/document/${doc.id}/versions`)} className="flex-1 bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 text-[var(--primary-color)] dark:text-[var(--primary-color)] py-2 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-[var(--primary-color)]/20">
                                     <span className="material-symbols-outlined text-sm">history_edu</span> Histórico
                                 </button>
                             </div>

@@ -84,25 +84,25 @@ const AdminUpload: React.FC = () => {
                 </div>
 
                 <div className="px-4 py-4 mt-2">
-                    <h3 className="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-[#1f7693] dark:border-[#5ab2d1] pl-3">Informações Básicas</h3>
+                    <h3 className="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-[var(--primary-color)] dark:border-[#5ab2d1] pl-3">Informações Básicas</h3>
                     <div className="space-y-4">
                         <label className="flex flex-col w-full">
                             <p className="text-[#121617] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Título do Documento</p>
-                            <input value={title} onChange={(e) => setTitle(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[#1f7693]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 placeholder:text-[#667d85] dark:placeholder:text-gray-500 p-[15px] text-base font-normal transition-all" placeholder="Ex: Plano de Ensino 2024" type="text" />
+                            <input value={title} onChange={(e) => setTitle(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 placeholder:text-[#667d85] dark:placeholder:text-gray-500 p-[15px] text-base font-normal transition-all" placeholder="Ex: Plano de Ensino 2024" type="text" />
                         </label>
                         <label className="flex flex-col w-full">
                             <p className="text-[#121617] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Descrição</p>
-                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[#1f7693]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] min-h-32 placeholder:text-[#667d85] dark:placeholder:text-gray-500 p-[15px] text-base font-normal resize-none transition-all" placeholder="Breve resumo do conteúdo para facilitar a busca..."></textarea>
+                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] min-h-32 placeholder:text-[#667d85] dark:placeholder:text-gray-500 p-[15px] text-base font-normal resize-none transition-all" placeholder="Breve resumo do conteúdo para facilitar a busca..."></textarea>
                         </label>
                     </div>
                 </div>
 
                 <div className="px-4 py-4 mt-2">
-                    <h3 className="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-[#1f7693] dark:border-[#5ab2d1] pl-3">Classificação</h3>
+                    <h3 className="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-[var(--primary-color)] dark:border-[#5ab2d1] pl-3">Classificação</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <label className="flex flex-col w-full">
                             <p className="text-[#121617] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Tipo de Arquivo</p>
-                            <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[#1f7693]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 p-[15px] text-base font-normal transition-all appearance-none">
+                            <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 p-[15px] text-base font-normal transition-all appearance-none">
                                 <option value="PDF">PDF</option>
                                 <option value="DOCX">DOCX</option>
                                 <option value="XLSX">XLSX</option>
@@ -111,14 +111,14 @@ const AdminUpload: React.FC = () => {
                         </label>
                         <label className="flex flex-col w-full">
                             <p className="text-[#121617] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Setor</p>
-                            <select value={selectedSector} onChange={(e) => setSelectedSector(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[#1f7693]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 p-[15px] text-base font-normal transition-all appearance-none">
+                            <select value={selectedSector} onChange={(e) => setSelectedSector(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 p-[15px] text-base font-normal transition-all appearance-none">
                                 <option value="">Selecione...</option>
                                 {sectors.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                             </select>
                         </label>
                         <label className="flex flex-col w-full">
                             <p className="text-[#121617] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Modalidade</p>
-                            <select value={selectedModality} onChange={(e) => setSelectedModality(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[#1f7693]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 p-[15px] text-base font-normal transition-all appearance-none">
+                            <select value={selectedModality} onChange={(e) => setSelectedModality(e.target.value)} className="flex w-full rounded-lg text-[#121617] dark:text-white focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)]/50 dark:focus:ring-[#5ab2d1]/50 border border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] h-14 p-[15px] text-base font-normal transition-all appearance-none">
                                 <option value="">Selecione...</option>
                                 {modalities.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
                             </select>
@@ -129,10 +129,10 @@ const AdminUpload: React.FC = () => {
                 {/* Additional metadata fields excluded for brevity but can be added back */}
 
                 <div className="px-4 py-4">
-                    <h3 className="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-[#1f7693] dark:border-[#5ab2d1] pl-3">Arquivo</h3>
+                    <h3 className="text-[#121617] dark:text-white tracking-tight text-lg font-bold leading-tight mb-4 border-l-4 border-[var(--primary-color)] dark:border-[#5ab2d1] pl-3">Arquivo</h3>
                     <div className="relative group cursor-pointer">
-                        <div className="flex flex-col items-center justify-center w-full min-h-[160px] rounded-xl border-2 border-dashed border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] hover:bg-[#1f7693]/5 dark:hover:bg-[#5ab2d1]/5 hover:border-[#1f7693] dark:hover:border-[#5ab2d1] transition-all p-6 text-center">
-                            <div className="size-14 bg-[#1f7693]/10 dark:bg-[#5ab2d1]/10 rounded-full flex items-center justify-center mb-3 text-[#1f7693] dark:text-[#5ab2d1]">
+                        <div className="flex flex-col items-center justify-center w-full min-h-[160px] rounded-xl border-2 border-dashed border-[#dce2e4] dark:border-gray-700 bg-white dark:bg-[#1e2329] hover:bg-[var(--primary-color)]/5 dark:hover:bg-[#5ab2d1]/5 hover:border-[var(--primary-color)] dark:hover:border-[#5ab2d1] transition-all p-6 text-center">
+                            <div className="size-14 bg-[var(--primary-color)]/10 dark:bg-[#5ab2d1]/10 rounded-full flex items-center justify-center mb-3 text-[var(--primary-color)] dark:text-[#5ab2d1]">
                                 <span className="material-symbols-outlined text-3xl">upload_file</span>
                             </div>
                             <p className="text-sm font-bold text-[#121617] dark:text-white mb-1">{file ? file.name : 'Selecione ou arraste o documento'}</p>

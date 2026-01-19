@@ -106,23 +106,23 @@ const AdminDashboard: React.FC = () => {
 
                 <div className="flex items-center justify-between px-4 pt-6 pb-2 border-b border-gray-100 dark:border-gray-800 mb-2">
                     <h3 className="text-[#121617] dark:text-white text-lg font-bold tracking-tight">Documentos Recentes</h3>
-                     <button onClick={() => navigate('/admin/documents')} className="text-[#1f7693] text-sm font-bold hover:underline">Ver Todos</button>
+                     <button onClick={() => navigate('/admin/documents')} className="text-[var(--primary-color)] text-sm font-bold hover:underline">Ver Todos</button>
                 </div>
 
                 <div className="px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {loading ? <p className="text-gray-400 col-span-3 text-center py-10">Carregando...</p> : recentDocs.length === 0 ? (
                         <p className="text-gray-400 col-span-3 text-center py-10">Nenhum documento recente.</p>
                     ) : recentDocs.map((doc, idx) => (
-                        <div key={doc.id} className="bg-white dark:bg-[#1e2329] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-[#1f7693] transition-all">
+                        <div key={doc.id} className="bg-white dark:bg-[#1e2329] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-[var(--primary-color)] transition-all">
                             <div className="flex gap-4">
-                                <div className={`size-12 rounded-lg bg-[#1f7693]/10 text-[#1f7693] flex items-center justify-center shrink-0`}>
+                                <div className={`size-12 rounded-lg bg-[var(--primary-color)]/10 text-[var(--primary-color)] flex items-center justify-center shrink-0`}>
                                     <span className="material-symbols-outlined">{doc.type === 'PDF' ? 'picture_as_pdf' : 'description'}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <div className="flex justify-between items-start">
                                         <h4 className="text-base font-bold text-[#121617] dark:text-white truncate pr-2">{doc.title}</h4>
                                         <div className="flex gap-1">
-                                            <button className="text-gray-400 hover:text-[#1f7693]" onClick={() => navigate('/admin/documents')}><span className="material-symbols-outlined text-[18px]">edit</span></button>
+                                            <button className="text-gray-400 hover:text-[var(--primary-color)]" onClick={() => navigate('/admin/documents')}><span className="material-symbols-outlined text-[18px]">edit</span></button>
                                         </div>
                                     </div>
                                     <div className="mt-2 space-y-1 text-xs text-gray-500 dark:text-gray-400">
@@ -134,7 +134,7 @@ const AdminDashboard: React.FC = () => {
                                             {doc.status === 'published' ? 'Publicado' : 'Rascunho'}
                                         </span>
                                         {doc.sector && (
-                                            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#1f7693]/10 text-[#1f7693]">
+                                            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[var(--primary-color)]/10 text-[var(--primary-color)]">
                                                 {doc.sector.name}
                                             </span>
                                         )}

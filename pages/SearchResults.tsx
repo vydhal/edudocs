@@ -24,6 +24,9 @@ const SearchResults: React.FC = () => {
     const [results, setResults] = useState<Document[]>([]);
     const [loading, setLoading] = useState(false);
     
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const canViewVersions = user?.role === 'ADMIN' || user?.role === 'EDITOR';
+    
     // Filters
     const [sectors, setSectors] = useState<any[]>([]);
     const [selectedSector, setSelectedSector] = useState(searchParams.get('sector') || '');
@@ -81,13 +84,13 @@ const SearchResults: React.FC = () => {
              {/* Desktop Header / Filters */}
             <div className="flex flex-col gap-4 px-4 py-8">
                 <div className="flex items-center gap-4">
-                     <div className="text-[#2d5a76] dark:text-blue-400 cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors" onClick={() => navigate('/')}>
+                     <div className="text-[var(--primary-color)] dark:text-blue-400 cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors" onClick={() => navigate('/')}>
                         <span className="material-symbols-outlined text-2xl">arrow_back</span>
                     </div>
                     <div className="flex-1 relative max-w-2xl">
                         <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-2xl">search</span>
                         <input 
-                            className="w-full h-14 bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 rounded-2xl pl-14 pr-4 text-lg focus:ring-4 focus:ring-[#2d5a76]/10 text-[#131516] dark:text-white shadow-sm" 
+                            className="w-full h-14 bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 rounded-2xl pl-14 pr-4 text-lg focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 text-[#131516] dark:text-white shadow-sm" 
                             type="text" 
                             defaultValue={query}
                             onKeyDown={handleSearchEnter}
@@ -98,10 +101,10 @@ const SearchResults: React.FC = () => {
                 
                 {/* Filters */}
                 <div className="flex flex-wrap gap-3 mt-4">
-                     <select 
+                    <select 
                         value={selectedSector}
                         onChange={(e) => setSelectedSector(e.target.value)}
-                        className="h-10 px-4 rounded-xl bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 text-[#131516] dark:text-white text-sm font-medium focus:outline-none focus:border-[#2d5a76]"
+                        className="h-10 px-4 rounded-xl bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 text-[#131516] dark:text-white text-sm font-medium focus:outline-none focus:border-[var(--primary-color)]"
                     >
                         <option value="">Todos os Setores</option>
                         {sectors.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
@@ -110,7 +113,7 @@ const SearchResults: React.FC = () => {
                     <select 
                         value={selectedType}
                         onChange={(e) => setSelectedType(e.target.value)}
-                        className="h-10 px-4 rounded-xl bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 text-[#131516] dark:text-white text-sm font-medium focus:outline-none focus:border-[#2d5a76]"
+                        className="h-10 px-4 rounded-xl bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 text-[#131516] dark:text-white text-sm font-medium focus:outline-none focus:border-[var(--primary-color)]"
                     >
                         <option value="">Todos os Tipos</option>
                         <option value="PDF">PDF</option>
@@ -119,7 +122,7 @@ const SearchResults: React.FC = () => {
                     </select>
 
                     {(selectedSector || selectedType) && (
-                        <button onClick={clearFilters} className="text-[#2d5a76] dark:text-blue-400 text-sm font-bold px-3 hover:underline">
+                        <button onClick={clearFilters} className="text-[var(--primary-color)] dark:text-blue-400 text-sm font-bold px-3 hover:underline">
                             Limpar Filtros
                         </button>
                     )}
@@ -134,7 +137,7 @@ const SearchResults: React.FC = () => {
                 {loading ? <div className="text-center p-4 text-gray-500 dark:text-gray-400 col-span-full">Carregando...</div> : results.map((doc, idx) => (
                     <div key={doc.id} className={`bg-white dark:bg-[#1e2329] p-4 md:p-6 rounded-xl md:rounded-2xl shadow-sm hover:shadow-md border border-gray-100 dark:border-gray-800 flex flex-col gap-4 md:gap-6 transition-all`}>
                         <div className="flex items-start gap-4">
-                            <div className={`text-[#2d5a76] dark:text-blue-400 flex items-center justify-center rounded-lg md:rounded-xl bg-[#2d5a76]/10 shrink-0 size-12 md:size-16`}>
+                            <div className={`text-[var(--primary-color)] dark:text-blue-400 flex items-center justify-center rounded-lg md:rounded-xl bg-gray-100 dark:bg-gray-800 shrink-0 size-12 md:size-16`}>
                                 <span className="material-symbols-outlined text-3xl md:text-4xl">description</span>
                             </div>
                             <div className="flex flex-1 flex-col justify-center">
@@ -159,11 +162,13 @@ const SearchResults: React.FC = () => {
                             </div>
                         </div>
                         <div className="flex gap-2 w-full mt-auto">
-                            <button onClick={() => navigate(`/document/${doc.id}/versions`)} className="flex-1 flex items-center justify-center gap-2 rounded-lg md:rounded-xl h-10 md:h-12 px-4 bg-[#2d5a76]/10 text-[#2d5a76] dark:text-blue-400 text-sm md:text-base font-bold hover:bg-[#2d5a76]/20 transition-colors">
-                                <span className="material-symbols-outlined text-lg md:text-xl">visibility</span>
-                                Visualizar
-                            </button>
-                            <a href={`http://localhost:3001${doc.fileUrl}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 rounded-lg md:rounded-xl h-10 md:h-12 px-4 bg-[#2d5a76] text-white text-sm md:text-base font-bold shadow-md shadow-[#2d5a76]/20 hover:bg-[#2d5a76]/90 transition-colors">
+                            {canViewVersions && (
+                                <button onClick={() => navigate(`/document/${doc.id}/versions`)} className="flex-1 flex items-center justify-center gap-2 rounded-lg md:rounded-xl h-10 md:h-12 px-4 bg-gray-100 dark:bg-gray-800 text-[var(--primary-color)] dark:text-blue-400 text-sm md:text-base font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                    <span className="material-symbols-outlined text-lg md:text-xl">visibility</span>
+                                    Visualizar
+                                </button>
+                            )}
+                            <a href={`http://localhost:3001${doc.fileUrl}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 rounded-lg md:rounded-xl h-10 md:h-12 px-4 bg-[var(--primary-color)] text-white text-sm md:text-base font-bold shadow-md hover:opacity-90 transition-opacity">
                                 <span className="material-symbols-outlined text-lg md:text-xl">download</span>
                                 Baixar
                             </a>

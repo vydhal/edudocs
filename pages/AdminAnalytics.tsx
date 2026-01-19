@@ -49,7 +49,7 @@ const AdminAnalytics: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div className="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-[#1e2329] border border-gray-100 dark:border-gray-800 shadow-sm">
                         <div className="flex items-center justify-between">
-                            <span className="material-symbols-outlined text-[#2f8598] dark:text-[#5ab2d1] text-xl">download</span>
+                            <span className="material-symbols-outlined text-[var(--primary-color)] dark:text-[#5ab2d1] text-xl">download</span>
                             <span className="text-[#078834] dark:text-[#4ade80] text-xs font-bold bg-[#078834]/10 dark:bg-[#4ade80]/10 px-1.5 py-0.5 rounded">+12%</span>
                         </div>
                         <div>
@@ -59,7 +59,7 @@ const AdminAnalytics: React.FC = () => {
                     </div>
                     <div className="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-[#1e2329] border border-gray-100 dark:border-gray-800 shadow-sm">
                         <div className="flex items-center justify-between">
-                            <span className="material-symbols-outlined text-[#2f8598] dark:text-[#5ab2d1] text-xl">description</span>
+                            <span className="material-symbols-outlined text-[var(--primary-color)] dark:text-[#5ab2d1] text-xl">description</span>
                         </div>
                         <div>
                             <p className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Total Documentos</p>
@@ -69,7 +69,7 @@ const AdminAnalytics: React.FC = () => {
                     </div>
                     <div className="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-[#1e2329] border border-gray-100 dark:border-gray-800 shadow-sm">
                         <div className="flex items-center justify-between">
-                            <span className="material-symbols-outlined text-[#2f8598] dark:text-[#5ab2d1] text-xl">calendar_today</span>
+                            <span className="material-symbols-outlined text-[var(--primary-color)] dark:text-[#5ab2d1] text-xl">calendar_today</span>
                             <span className="text-[#078834] dark:text-[#4ade80] text-xs font-bold bg-[#078834]/10 dark:bg-[#4ade80]/10 px-1.5 py-0.5 rounded">+5%</span>
                         </div>
                         <div>
@@ -79,7 +79,7 @@ const AdminAnalytics: React.FC = () => {
                     </div>
                     <div className="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-[#1e2329] border border-gray-100 dark:border-gray-800 shadow-sm">
                         <div className="flex items-center justify-between">
-                            <span className="material-symbols-outlined text-[#2f8598] dark:text-[#5ab2d1] text-xl">group</span>
+                            <span className="material-symbols-outlined text-[var(--primary-color)] dark:text-[#5ab2d1] text-xl">group</span>
                             <span className="text-[#e73508] dark:text-[#f87171] text-xs font-bold bg-[#e73508]/10 dark:bg-[#f87171]/10 px-1.5 py-0.5 rounded">-2%</span>
                         </div>
                         <div>
@@ -95,7 +95,7 @@ const AdminAnalytics: React.FC = () => {
                             <h3 className="text-[#121617] dark:text-white text-base font-bold">Tendência de Downloads</h3>
                             <p className="text-gray-500 dark:text-gray-400 text-sm">Últimos 6 meses</p>
                         </div>
-                        <div className="bg-[#2f8598]/10 dark:bg-[#5ab2d1]/10 text-[#2f8598] dark:text-[#5ab2d1] p-2 rounded-lg">
+                        <div className="bg-[var(--primary-color)]/10 dark:bg-[#5ab2d1]/10 text-[var(--primary-color)] dark:text-[#5ab2d1] p-2 rounded-lg">
                             <span className="material-symbols-outlined">trending_up</span>
                         </div>
                     </div>
@@ -108,11 +108,11 @@ const AdminAnalytics: React.FC = () => {
                             <AreaChart data={stats.analyticsData}>
                                 <defs>
                                     <linearGradient id="colorDownloads" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#2f8598" stopOpacity={0.3}/>
-                                        <stop offset="95%" stopColor="#2f8598" stopOpacity={0}/>
+                                        <stop offset="5%" stopColor="var(--primary-color)" stopOpacity={0.3}/>
+                                        <stop offset="95%" stopColor="var(--primary-color)" stopOpacity={0}/>
                                     </linearGradient>
                                 </defs>
-                                <Area type="monotone" dataKey="downloads" stroke="#2f8598" strokeWidth={3} fillOpacity={1} fill="url(#colorDownloads)" />
+                                <Area type="monotone" dataKey="downloads" stroke="var(--primary-color)" strokeWidth={3} fillOpacity={1} fill="url(#colorDownloads)" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
@@ -121,7 +121,7 @@ const AdminAnalytics: React.FC = () => {
                 <div className="flex flex-col gap-4">
                     <div className="flex items-center justify-between px-1">
                         <h2 className="text-[#121617] dark:text-white text-lg font-bold">Top Documentos</h2>
-                        <button className="text-[#2f8598] dark:text-[#5ab2d1] text-sm font-bold">Ver todos</button>
+                        <button className="text-[var(--primary-color)] dark:text-[#5ab2d1] text-sm font-bold">Ver todos</button>
                     </div>
                     <div className="flex flex-col bg-white dark:bg-[#1e2329] rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
                         <div className="grid grid-cols-12 gap-2 p-4 border-b border-gray-50 dark:border-gray-700 bg-gray-50/50 dark:bg-[#2c333a]/50">
@@ -135,7 +135,7 @@ const AdminAnalytics: React.FC = () => {
                                     <span className="text-xs text-gray-400">{doc.status}</span>
                                 </div>
                                 <div className="col-span-2 text-right">
-                                    <span className="text-xs font-bold text-[#2f8598] dark:text-[#5ab2d1]">{doc.downloads}</span>
+                                    <span className="text-xs font-bold text-[var(--primary-color)] dark:text-[#5ab2d1]">{doc.downloads}</span>
                                 </div>
                             </div>
                         )) : (

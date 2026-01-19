@@ -211,7 +211,7 @@ const AdminSettings: React.FC = () => {
                             <>
                                 <div className="mb-6">
                                     <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Identidade Visual</h3>
-                                    <div className="bg-white dark:bg-[#1a1f24] rounded-xl border border-dashed border-gray-200 dark:border-gray-600 p-6 flex flex-col items-center justify-center text-center group cursor-pointer hover:border-[#1f7693] transition-colors relative">
+                                    <div className="bg-white dark:bg-[#1a1f24] rounded-xl border border-dashed border-gray-200 dark:border-gray-600 p-6 flex flex-col items-center justify-center text-center group cursor-pointer hover:border-[var(--primary-color)] transition-colors relative">
                                         <div className="bg-transparent p-4 rounded-xl mb-3 group-hover:scale-110 transition-transform h-24 flex items-center justify-center">
                                             {settings.logoUrl ? (
                                                 <img src={`http://localhost:3001${settings.logoUrl}`} alt="Logo" className="max-h-full max-w-full object-contain" />
@@ -221,7 +221,7 @@ const AdminSettings: React.FC = () => {
                                         </div>
                                         <h4 className="text-[#121617] dark:text-white font-bold mb-1">Upload de Logo</h4>
                                         <p className="text-gray-500 dark:text-gray-400 text-xs mb-4">Formatos: SVG ou PNG transparente (Máx 2MB)</p>
-                                        <button className="px-4 py-2 bg-[#1f7693]/20 text-[#1f7693] dark:text-[#5ab2d1] text-sm font-bold rounded-lg flex items-center gap-2 hover:bg-[#1f7693]/30 transition-colors pointer-events-none">
+                                        <button className="px-4 py-2 bg-[var(--primary-color)]/20 text-[var(--primary-color)] dark:text-[#5ab2d1] text-sm font-bold rounded-lg flex items-center gap-2 hover:bg-[var(--primary-color)]/30 transition-colors pointer-events-none">
                                             <span className="material-symbols-outlined text-lg">cloud_upload</span>
                                             Fazer Upload
                                         </button>
@@ -266,7 +266,7 @@ const AdminSettings: React.FC = () => {
                                             </div>
                                             <button 
                                                 onClick={toggleDarkMode}
-                                                className={`w-12 h-6 rounded-full transition-colors relative ${settings.darkMode === 'true' ? 'bg-[#1f7693]' : 'bg-gray-300 dark:bg-gray-600'}`}
+                                                className={`w-12 h-6 rounded-full transition-colors relative ${settings.darkMode === 'true' ? 'bg-[var(--primary-color)]' : 'bg-gray-300 dark:bg-gray-600'}`}
                                             >
                                                 <div className={`absolute top-1 bottom-1 w-4 h-4 bg-white rounded-full transition-transform ${settings.darkMode === 'true' ? 'left-7' : 'left-1'}`}></div>
                                             </button>
@@ -308,7 +308,7 @@ const AdminSettings: React.FC = () => {
                                                 onChange={(e) => setNewSector(e.target.value)}
                                                 className="flex-1 h-10 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#121617] px-3 text-sm text-[#121617] dark:text-white"
                                             />
-                                            <button onClick={handleAddSector} className="bg-[#1f7693] text-white px-3 rounded-lg hover:opacity-90">
+                                            <button onClick={handleAddSector} className="bg-[var(--primary-color)] text-white px-3 rounded-lg hover:opacity-90">
                                                 <span className="material-symbols-outlined">add</span>
                                             </button>
                                         </div>
@@ -338,7 +338,7 @@ const AdminSettings: React.FC = () => {
                                                 onChange={(e) => setNewModality(e.target.value)}
                                                 className="flex-1 h-10 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#121617] px-3 text-sm text-[#121617] dark:text-white"
                                             />
-                                            <button onClick={handleAddModality} className="bg-[#1f7693] text-white px-3 rounded-lg hover:opacity-90">
+                                            <button onClick={handleAddModality} className="bg-[var(--primary-color)] text-white px-3 rounded-lg hover:opacity-90">
                                                 <span className="material-symbols-outlined">add</span>
                                             </button>
                                         </div>

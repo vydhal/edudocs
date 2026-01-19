@@ -40,8 +40,8 @@ const Header: React.FC<HeaderProps> = ({ title, showBack, startContent }) => {
                         <button className="flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
                             <span className="material-symbols-outlined text-[22px]">notifications</span>
                         </button>
-                        <button onClick={() => setShowLogoutModal(true)} className="flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden ring-2 ring-transparent hover:ring-[#1f7693] transition-all">
-                            <div className="w-full h-full bg-[#1f7693] text-white flex items-center justify-center font-bold text-sm">{initials}</div>
+                        <button onClick={() => setShowLogoutModal(true)} className="flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden ring-2 ring-transparent hover:ring-[var(--primary-color)] transition-all">
+                            <div className="w-full h-full bg-[var(--primary-color)] text-white flex items-center justify-center font-bold text-sm">{initials}</div>
                         </button>
                     </div>
                 </div>

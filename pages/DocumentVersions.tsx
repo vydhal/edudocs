@@ -103,7 +103,7 @@ const DocumentVersions: React.FC = () => {
                                 {currentVersion.description}
                             </p>
                         </div>
-                        <div className="bg-[#2898bd]/10 dark:bg-[#5ab2d1]/10 text-[#2898bd] dark:text-[#5ab2d1] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <div className="bg-[var(--primary-color)]/10 dark:bg-[#5ab2d1]/10 text-[var(--primary-color)] dark:text-[#5ab2d1] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                             v{currentVersion.version} - Atual
                         </div>
                     </div>
@@ -115,13 +115,13 @@ const DocumentVersions: React.FC = () => {
 
                     {documents.map((doc, index) => (
                         <div key={doc.id} className="relative pl-10">
-                            <div className={`absolute left-0 top-1 w-[26px] h-[26px] rounded-full border-4 border-white dark:border-[#121617] z-10 flex items-center justify-center ${index === 0 ? 'bg-[#2898bd]' : 'bg-gray-300 dark:bg-gray-600'}`}>
+                            <div className={`absolute left-0 top-1 w-[26px] h-[26px] rounded-full border-4 border-white dark:border-[#121617] z-10 flex items-center justify-center ${index === 0 ? 'bg-[var(--primary-color)]' : 'bg-gray-300 dark:bg-gray-600'}`}>
                                 {index === 0 && <div className="w-1.5 h-1.5 bg-white rounded-full"></div>}
                             </div>
                             <div className="bg-white dark:bg-[#1e2329] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                                 <div className="p-4">
                                     <div className="flex justify-between items-start mb-2">
-                                        <span className={`text-sm font-bold ${index === 0 ? 'text-[#2898bd] dark:text-[#5ab2d1]' : 'text-gray-500 dark:text-gray-400'}`}>VERSÃO {doc.version}</span>
+                                        <span className={`text-sm font-bold ${index === 0 ? 'text-[var(--primary-color)] dark:text-[#5ab2d1]' : 'text-gray-500 dark:text-gray-400'}`}>VERSÃO {doc.version}</span>
                                         <span className="text-xs text-[#667d85] dark:text-gray-500">{new Date(doc.createdAt).toLocaleString()}</span>
                                     </div>
                                     <p className="text-sm font-medium mb-3">{doc.description}</p>
@@ -137,7 +137,7 @@ const DocumentVersions: React.FC = () => {
                                             Baixar
                                         </a>
                                         {index !== 0 && (
-                                            <button className="flex items-center justify-center gap-2 h-10 rounded-lg bg-[#2898bd] text-white text-sm font-semibold hover:bg-[#2898bd]/90 transition-colors shadow-md">
+                                            <button className="flex items-center justify-center gap-2 h-10 rounded-lg bg-[var(--primary-color)] text-white text-sm font-semibold hover:opacity-90 transition-colors shadow-md">
                                                 <span className="material-symbols-outlined text-lg">history</span>
                                                 Restaurar
                                             </button>
@@ -164,7 +164,7 @@ const DocumentVersions: React.FC = () => {
                         </div>
                      ) : (
                         <>
-                            <button className="w-full bg-[#2898bd] text-white h-12 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#2898bd]/20 hover:bg-[#2898bd]/90">
+                            <button className="w-full bg-[var(--primary-color)] text-white h-12 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-[var(--primary-color)]/20 hover:opacity-90">
                                 <span className="material-symbols-outlined">upload_file</span>
                                 Subir Nova Versão
                             </button>

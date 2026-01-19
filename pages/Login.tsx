@@ -56,7 +56,7 @@ const Login: React.FC = () => {
                     {logoUrl ? (
                         <img src={`http://localhost:3001${logoUrl}`} alt="Logo" className="h-24 object-contain" />
                     ) : (
-                        <div className="bg-[#2966a3] rounded-xl p-3 shadow-lg">
+                        <div className="bg-[var(--primary-color)] rounded-xl p-3 shadow-lg">
                             <span className="material-symbols-outlined text-white text-4xl">menu_book</span>
                         </div>
                     )}
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
                 
                 <button 
                     onClick={() => navigate('/')}
-                    className="mt-6 flex items-center gap-2 text-[#2966a3] hover:text-[#2966a3]/80 font-semibold text-sm transition-colors"
+                    className="mt-6 flex items-center gap-2 text-[var(--primary-color)] hover:opacity-80 font-semibold text-sm transition-opacity"
                 >
                     <span className="material-symbols-outlined text-lg">arrow_back</span>
                     Voltar para Home
@@ -74,12 +74,12 @@ const Login: React.FC = () => {
             </div>
 
             <div className="w-full max-w-[400px] bg-white dark:bg-[#1e2329] rounded-xl shadow-xl border border-[#dde0e4] dark:border-gray-800 overflow-hidden">
-                <div className="w-full h-32 bg-[#2966a3]/10 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#2966a3]/20 rounded-full"></div>
-                    <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-[#2966a3]/10 rounded-full"></div>
+                <div className="w-full h-32 bg-[var(--primary-color)]/10 flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute -top-4 -left-4 w-24 h-24 bg-[var(--primary-color)]/20 rounded-full"></div>
+                    <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-[var(--primary-color)]/10 rounded-full"></div>
                     <div className="relative z-10 text-center">
                         <h2 className="text-[#121417] dark:text-white text-xl font-bold px-4">Login Administrativo</h2>
-                        <div className="h-1 w-12 bg-[#2966a3] mx-auto mt-2 rounded-full"></div>
+                        <div className="h-1 w-12 bg-[var(--primary-color)] mx-auto mt-2 rounded-full"></div>
                     </div>
                 </div>
                 
@@ -96,7 +96,7 @@ const Login: React.FC = () => {
                                 <span className="material-symbols-outlined text-[20px]">alternate_email</span>
                             </div>
                             <input 
-                                className="flex w-full min-w-0 flex-1 rounded-lg focus:outline-0 focus:ring-0 border border-[#dde0e4] dark:border-gray-700 bg-white dark:bg-[#121617] text-[#121417] dark:text-white focus:border-[#2966a3] h-12 placeholder:text-[#677583] dark:placeholder:text-gray-600 p-3 rounded-l-none text-base font-normal" 
+                                className="flex w-full min-w-0 flex-1 rounded-lg focus:outline-0 focus:ring-0 border border-[#dde0e4] dark:border-gray-700 bg-white dark:bg-[#121617] text-[#121417] dark:text-white focus:border-[var(--primary-color)] h-12 placeholder:text-[#677583] dark:placeholder:text-gray-600 p-3 rounded-l-none text-base font-normal" 
                                 placeholder="nome@edu.gov.br" 
                                 type="email" 
                                 required 
@@ -123,7 +123,7 @@ const Login: React.FC = () => {
                             <button 
                                 type="button" 
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#2966a3]"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[var(--primary-color)]"
                             >
                                 <span className="material-symbols-outlined text-[20px]">{showPassword ? 'visibility' : 'visibility_off'}</span>
                             </button>
@@ -132,13 +132,13 @@ const Login: React.FC = () => {
 
                     <div className="flex items-center justify-between py-2">
                         <label className="flex items-center gap-2 cursor-pointer group">
-                            <input className="w-4 h-4 rounded border-[#dde0e4] text-[#2966a3] focus:ring-[#2966a3]/50 transition-colors" type="checkbox" />
-                            <span className="text-sm text-[#677583] dark:text-gray-400 font-medium group-hover:text-[#2966a3]">Lembrar de mim</span>
+                            <input className="w-4 h-4 rounded border-[#dde0e4] text-[var(--primary-color)] focus:ring-[var(--primary-color)]/50 transition-colors" type="checkbox" />
+                            <span className="text-sm text-[#677583] dark:text-gray-400 font-medium group-hover:text-[var(--primary-color)]">Lembrar de mim</span>
                         </label>
-                        <button type="button" className="text-sm font-semibold text-[#2966a3] hover:underline underline-offset-4" onClick={() => alert('Entre em contato com o suporte para redefinir sua senha.')}>Esqueci minha senha</button>
+                        <button type="button" className="text-sm font-semibold text-[var(--primary-color)] hover:underline underline-offset-4" onClick={() => alert('Entre em contato com o suporte para redefinir sua senha.')}>Esqueci minha senha</button>
                     </div>
 
-                    <button className="w-full bg-[#2966a3] hover:bg-[#2966a3]/90 text-white font-bold py-3.5 px-4 rounded-lg shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-2" type="submit" disabled={loading}>
+                    <button className="w-full bg-[var(--primary-color)] hover:opacity-90 text-white font-bold py-3.5 px-4 rounded-lg shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-2" type="submit" disabled={loading}>
                         {loading ? 'Entrando...' : (
                             <>
                                 <span>Acessar</span>
@@ -156,7 +156,7 @@ const Login: React.FC = () => {
             </div>
 
             <div className="fixed top-12 left-12 opacity-10 pointer-events-none -z-10">
-                <span className="material-symbols-outlined text-[120px] text-[#2966a3]">school</span>
+                <span className="material-symbols-outlined text-[120px] text-[var(--primary-color)]">school</span>
             </div>
             <p className="mt-8 text-xs text-[#677583] dark:text-gray-500 font-medium">
                 © 2024 EduDocs · Gestão de Documentos v1.0.4

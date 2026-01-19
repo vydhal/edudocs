@@ -50,7 +50,7 @@ const AdminUsers: React.FC = () => {
             <Header 
                 title="EduDocs" 
                 startContent={
-                    <span className="material-symbols-outlined text-[#2f8598] dark:text-[#5ab2d1]" style={{ fontSize: '32px' }}>description</span>
+                    <span className="material-symbols-outlined text-[var(--primary-color)] dark:text-[var(--primary-color)]" style={{ fontSize: '32px' }}>description</span>
                 }
             />
                 <div className="px-4 pb-4">
@@ -81,7 +81,7 @@ const AdminUsers: React.FC = () => {
                         <div key={user.id} className="bg-white dark:bg-[#1e2329] rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-800">
                             <div className="flex justify-between items-start mb-3">
                                 <div className="flex gap-3">
-                                    <div className="h-12 w-12 rounded-full bg-[#2f8598]/20 flex items-center justify-center text-[#2f8598] dark:text-[#5ab2d1] font-bold text-xl">
+                                    <div className="h-12 w-12 rounded-full bg-[var(--primary-color)]/20 flex items-center justify-center text-[var(--primary-color)] dark:text-[var(--primary-color)] font-bold text-xl">
                                         {user.name.charAt(0)}
                                     </div>
                                     <div>
@@ -102,7 +102,7 @@ const AdminUsers: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex border-t border-gray-50 dark:border-gray-800 pt-3 gap-3">
-                                <button className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-[#2f8598]/10 text-[#2f8598] dark:text-[#5ab2d1] font-bold text-sm hover:bg-[#2f8598]/20">
+                                <button className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-[var(--primary-color)]/10 text-[var(--primary-color)] dark:text-[var(--primary-color)] font-bold text-sm hover:bg-[var(--primary-color)]/20">
                                     <span className="material-symbols-outlined text-[18px]">edit</span> Editar
                                 </button>
                                 <button onClick={() => handleDelete(user.id)} className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold text-sm hover:bg-red-100 dark:hover:bg-red-900/30">
