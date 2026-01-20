@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../src/api/api';
+import api, { getAssetUrl } from '../src/api/api';
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
             <div className="w-full max-w-[400px] mb-8 flex flex-col items-center">
                 <div className="flex items-center justify-center mb-4">
                     {logoUrl ? (
-                        <img src={`http://localhost:3001${logoUrl}`} alt="Logo" className="h-24 object-contain" />
+                        <img src={getAssetUrl(logoUrl)} alt="Logo" className="h-24 object-contain" />
                     ) : (
                         <div className="bg-[var(--primary-color)] rounded-xl p-3 shadow-lg">
                             <span className="material-symbols-outlined text-white text-4xl">menu_book</span>

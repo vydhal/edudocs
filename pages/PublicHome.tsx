@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../src/api/api';
+import api, { getAssetUrl } from '../src/api/api';
 
 interface Document {
     id: number;
@@ -237,7 +237,7 @@ const PublicHome: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex gap-3">
-                                    <a href={`http://localhost:3001${doc.fileUrl}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-[var(--primary-color)] hover:opacity-90 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity">
+                                    <a href={getAssetUrl(doc.fileUrl)} target="_blank" rel="noopener noreferrer" className="flex-1 bg-[var(--primary-color)] hover:opacity-90 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity">
                                         <span className="material-symbols-outlined text-lg">download</span>
                                         Baixar
                                     </a>

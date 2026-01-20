@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import api from '../src/api/api';
+import api, { getAssetUrl } from '../src/api/api';
 
 interface Document {
     id: number;
@@ -132,7 +132,7 @@ const DocumentVersions: React.FC = () => {
                                         <span className="text-xs text-[#667d85] dark:text-gray-500">Por <strong>{doc.author?.name}</strong></span>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
-                                        <a href={`http://localhost:3001${doc.fileUrl}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 h-10 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-[#2c333a] transition-colors dark:text-gray-300">
+                                        <a href={getAssetUrl(doc.fileUrl)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 h-10 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-[#2c333a] transition-colors dark:text-gray-300">
                                             <span className="material-symbols-outlined text-lg">download</span>
                                             Baixar
                                         </a>

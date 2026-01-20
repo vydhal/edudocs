@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../src/api/api';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 interface BottomNavProps {
@@ -35,10 +36,8 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
     React.useEffect(() => {
         const fetchSettings = async () => {
             try {
-                // Assuming api is available via import or context. 
-                // BottomNav doesn't import 'api'. I need to check imports.
-                // Assuming standard fetch or I need to add import.
-                const res = await fetch('http://localhost:3001/api/settings');
+                // Using relative path /api for consistency or full URL if in dev
+                const res = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3001/api')}/settings`);
                 const data = await res.json();
                 if (data && data.logoUrl) {
                     setLogoUrl(data.logoUrl);
@@ -53,7 +52,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
     const Logo = () => (
         <div className="hidden md:flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
             {logoUrl ? (
-                <img src={`http://localhost:3001${logoUrl}`} alt="EduDocs Logo" className="h-10 w-auto object-contain" />
+                <img src={getAssetUrl(logoUrl)} alt="EduDocs Logo" className="h-10 w-auto object-contain" />
             ) : (
                 <div className="bg-[var(--primary-color)] text-white p-1 rounded-xl flex items-center justify-center size-12 shadow-sm shadow-[var(--primary-color)]/20">
                     <span className="material-symbols-outlined text-3xl">archive</span>
@@ -68,7 +67,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
             <button onClick={() => setShowLogoutModal(true)} className="flex items-center gap-3 pl-1 pr-4 py-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border border-transparent hover:border-gray-200 dark:hover:border-gray-700">
                 {user.avatarUrl ? (
                      <img 
-                        src={`http://localhost:3001${user.avatarUrl}`} 
+                        src={getAssetUrl(user.avatarUrl)} 
                         alt="Profile" 
                         className="size-10 rounded-full object-cover shadow-md border-2 border-white dark:border-gray-700"
                     />

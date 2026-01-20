@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import api from '../src/api/api';
+import api, { getAssetUrl } from '../src/api/api';
 
 interface Document {
     id: number;
@@ -168,7 +168,7 @@ const SearchResults: React.FC = () => {
                                     Visualizar
                                 </button>
                             )}
-                            <a href={`http://localhost:3001${doc.fileUrl}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 rounded-lg md:rounded-xl h-10 md:h-12 px-4 bg-[var(--primary-color)] text-white text-sm md:text-base font-bold shadow-md hover:opacity-90 transition-opacity">
+                            <a href={getAssetUrl(doc.fileUrl)} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 rounded-lg md:rounded-xl h-10 md:h-12 px-4 bg-[var(--primary-color)] text-white text-sm md:text-base font-bold shadow-md hover:opacity-90 transition-opacity">
                                 <span className="material-symbols-outlined text-lg md:text-xl">download</span>
                                 Baixar
                             </a>

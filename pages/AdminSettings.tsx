@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../src/api/api';
+import api, { getAssetUrl } from '../src/api/api';
 
 import Header from '../components/Header';
 
@@ -214,7 +214,7 @@ const AdminSettings: React.FC = () => {
                                     <div className="bg-white dark:bg-[#1a1f24] rounded-xl border border-dashed border-gray-200 dark:border-gray-600 p-6 flex flex-col items-center justify-center text-center group cursor-pointer hover:border-[var(--primary-color)] transition-colors relative">
                                         <div className="bg-transparent p-4 rounded-xl mb-3 group-hover:scale-110 transition-transform h-24 flex items-center justify-center">
                                             {settings.logoUrl ? (
-                                                <img src={`http://localhost:3001${settings.logoUrl}`} alt="Logo" className="max-h-full max-w-full object-contain" />
+                                                <img src={getAssetUrl(settings.logoUrl)} alt="Logo" className="max-h-full max-w-full object-contain" />
                                             ) : (
                                                 <span className="material-symbols-outlined text-gray-400 dark:text-gray-300 text-5xl">image</span>
                                             )}
@@ -365,7 +365,7 @@ const AdminSettings: React.FC = () => {
                             <div className="relative group cursor-pointer mb-4">
                                 <div className="size-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden border-2 border-white dark:border-gray-600 shadow-lg">
                                      {profileAvatar || user.avatarUrl ? (
-                                        <img src={`http://localhost:3001${profileAvatar || user.avatarUrl}`} alt="Profile" className="w-full h-full object-cover" />
+                                        <img src={getAssetUrl(profileAvatar || user.avatarUrl)} alt="Profile" className="w-full h-full object-cover" />
                                      ) : (
                                         <span className="material-symbols-outlined text-5xl text-gray-400">person</span>
                                      )}
