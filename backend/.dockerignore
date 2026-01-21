@@ -5,6 +5,5 @@ dist
 coverage
 backend/node_modules
 backend/coverage
-# backend/.env
+backend/.env
 
-.env

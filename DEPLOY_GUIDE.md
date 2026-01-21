@@ -91,3 +91,41 @@ docker push vydhal/edudocs-frontend:latest
     ALTER USER admin WITH PASSWORD 'EduDocs_Secure_DB_Pass_2026';
     ```
 4.  Reinicie o serviço do Backend.
+
+## ☢️ Procedimento de Reinstalação Limpa (Nuclear Option)
+
+Se você precisa resetar tudo e começar do zero (com banco limpo e seeds atualizadas):
+
+### 1. Atualizar Imagens
+No seu terminal local:
+```bash
+# Entre na pasta do backend para garantir que o seed novo vá junto
+cd backend
+docker build -t vydhal/edudocs-backend:latest .
+docker push vydhal/edudocs-backend:latest
+cd ..
+```
+
+### 2. Limpeza no Portainer
+1.  **Stop Stack**: Pare a stack `edudocs`.
+2.  **Delete Containers**: Vá em 'Containers', selecione todos do `edudocs` e clique em Remove.
+3.  **Delete Volumes**: Vá em 'Volumes' e delete:
+    *   `edudocs_postgres_data` (e `_v2` se existir)
+    *   `edudocs_edudocs_uploads`
+    *   Basicamente tudo que tiver `edudocs` no nome.
+4.  **Delete Images** (Opcional mas recomendado): Vá em 'Images' e delete `vydhal/edudocs-backend:latest` para forçar o Portainer a baixar a nova versão que você acabou de dar push.
+
+### 3. Redeploy
+1.  Volte na Stack.
+2.  Faça o upload do `docker-compose.yml` (se tiver mudado algo).
+3.  Clique em **Deploy the Stack**.
+4.  Certifique-se de marcar "Pull latest image version" se for apenas um Update.
+
+### 4. Popular Banco de Dados
+Assim que o Backend subir (ficar verde):
+1.  Console > `edudocs_backend` > Connect.
+2.  Rode:
+    ```bash
+    npx prisma db seed
+    ```
+3.  Pronto! Logue com o admin configurado (`vydhal@gmail.com`).
