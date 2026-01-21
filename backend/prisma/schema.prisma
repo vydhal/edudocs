@@ -64,3 +64,10 @@ enum Role {
   EDITOR
   VIEWER
 }
+
+model Link {
+  id        Int      @id @default(autoincrement())
+  name      String
+  url       String
+  createdAt DateTime @default(now())
+}

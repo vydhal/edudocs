@@ -19,7 +19,7 @@ services:
         - "traefik.http.services.edudocs-backend.loadbalancer.server.port=3001"
     environment:
       # Conecta ao Postgres usando o nome do serviço na rede interna
-      DATABASE_URL: postgresql://superadmin:EduDocs_New_Pass_2026@postgres:5432/edudocs?schema=public
+      DATABASE_URL: postgresql://superadmin:Admin123@postgres:5432/edudocs?schema=public
       PORT: 3001
       JWT_SECRET: EduDocs_JWT_Secure_Token_v1
     depends_on:
@@ -28,7 +28,7 @@ services:
       - edudocs_uploads:/app/uploads
     networks:
       - SimpliSoft # Para falar com o Traefik
-      - edudocs-internal # Para falar com o Postgres
+      - app_network # Para falar com o Postgres
 
   # 2. Frontend
   frontend:
@@ -58,16 +58,21 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      POSTGRES_USER: superadmin
-      POSTGRES_PASSWORD: EduDocs_New_Pass_2026
-      POSTGRES_DB: edudocs
+      - POSTGRES_USER=superadmin
+      - POSTGRES_PASSWORD=Admin123
+      - POSTGRES_DB=edudocs
     volumes:
-      - postgres_data_v4:/var/lib/postgresql/data
+      - postgres_data_v5:/var/lib/postgresql/data
     networks:
-      - edudocs-internal # Apenas rede interna, seguro.
+      - app_network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U superadmin -d edudocs" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  postgres_data_v4:
+  postgres_data_v5:
   edudocs_uploads:
 
 
@@ -76,6 +81,6 @@ networks:
   SimpliSoft:
     external: true
   # Rede interna para comunicação Backend <-> DB
-  edudocs-internal:
+  app_network:
     driver: overlay
     attachable: true

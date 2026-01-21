@@ -42,7 +42,7 @@ const AdminDocuments: React.FC = () => {
 
     const fetchDocuments = async () => {
         try {
-            const response = await api.get('/documents');
+            const response = await api.get('/documents?paginate=false');
             // Filter out archived documents unless we want to show history here? Use backend filter normally.
             // Backend returns everything by default. We should probably filter on frontend or backend.
             // For now, let's filter purely 'published' or 'draft' on frontend display or keep all.

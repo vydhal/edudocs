@@ -115,6 +115,10 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
                         <span className="material-symbols-outlined group-hover:text-primary">group</span>
                         <span className={navTextClass}>Usuários</span>
                     </button>
+                    <button onClick={() => navigate('/admin/links')} className={`${navButtonClass} ${!isActive('/admin/links') && inactiveAdminClass}`} style={isActive('/admin/links') ? activeStyle : {}}>
+                        <span className="material-symbols-outlined group-hover:text-primary">link</span>
+                        <span className={navTextClass}>Links</span>
+                    </button>
                     <button onClick={() => navigate('/admin/settings')} className={`${navButtonClass} ${!isActive('/admin/settings') && inactiveAdminClass}`} style={isActive('/admin/settings') ? activeStyle : {}}>
                         <span className="material-symbols-outlined group-hover:text-primary">settings</span>
                         <span className={navTextClass}>Config</span>
@@ -133,6 +137,10 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
                     <button onClick={() => navigate('/admin/documents')} className={navButtonClass} style={activeStyle}>
                         <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>description</span>
                         <span className={navTextClass}>Meus Docs</span>
+                    </button>
+                    <button onClick={() => navigate('/admin/links')} className={`${navButtonClass} ${!isActive('/admin/links') && inactiveAdminClass}`} style={isActive('/admin/links') ? activeStyle : {}}>
+                        <span className="material-symbols-outlined group-hover:text-primary">link</span>
+                        <span className={navTextClass}>Links</span>
                     </button>
                     <button onClick={() => navigate('/admin/settings')} className={`${navButtonClass} ${!isActive('/admin/settings') && inactiveAdminClass}`} style={isActive('/admin/settings') ? activeStyle : {}}>
                         <span className="material-symbols-outlined">account_circle</span>

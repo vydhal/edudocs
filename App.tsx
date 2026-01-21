@@ -10,6 +10,7 @@ import AdminDocuments from './pages/AdminDocuments';
 import AdminUpload from './pages/AdminUpload';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminSettings from './pages/AdminSettings';
+import AdminLinks from './pages/AdminLinks';
 import DocumentVersions from './pages/DocumentVersions';
 import BottomNav from './components/BottomNav';
 import ProtectedRoute from './src/components/ProtectedRoute';
@@ -86,6 +87,7 @@ const App: React.FC = () => {
                     <Route path="/admin/users" element={<Layout type="auto"><AdminUsers /></Layout>} />
                     <Route path="/admin/users/new" element={<Layout type="none"><AdminUserNew /></Layout>} />
                     <Route path="/admin/analytics" element={<Layout type="auto"><AdminAnalytics /></Layout>} />
+                    <Route path="/admin/links" element={<Layout type="auto"><AdminLinks /></Layout>} />
                     <Route path="/admin/settings" element={<Layout type="auto"><AdminSettings /></Layout>} />
                     <Route path="/document/:id/versions" element={<Layout type="none"><DocumentVersions /></Layout>} />
                 </Route>

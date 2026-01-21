@@ -4,7 +4,7 @@ const path = require('path');
 const prisma = new PrismaClient();
 
 const getAllDocuments = async (req, res) => {
-    const { status, search, sectorId, modalityId, type } = req.query;
+    const { status, search, sectorId, modalityId, type, page = 1, limit = 30, paginate = 'true' } = req.query;
     try {
         const where = {};
         if (status) where.status = status;
@@ -19,16 +19,33 @@ const getAllDocuments = async (req, res) => {
             ];
         }
 
-        const documents = await prisma.document.findMany({
-            where,
-            include: { 
-                author: { select: { name: true } },
-                sector: true,
-                modality: true
-            },
-            orderBy: { createdAt: 'desc' }
+        const orderBy = { createdAt: 'desc' };
+        const include = { 
+            author: { select: { name: true } },
+            sector: true,
+            modality: true
+        };
+
+        if (paginate === 'false') {
+            const documents = await prisma.document.findMany({ where, include, orderBy });
+            return res.json(documents);
+        }
+
+        const p = parseInt(page);
+        const l = parseInt(limit);
+        const skip = (p - 1) * l;
+
+        const [documents, total] = await prisma.$transaction([
+            prisma.document.findMany({ where, include, orderBy, skip, take: l }),
+            prisma.document.count({ where })
+        ]);
+
+        res.json({
+            documents,
+            total,
+            pages: Math.ceil(total / l),
+            currentPage: p
         });
-        res.json(documents);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching documents', error: error.message });
     }

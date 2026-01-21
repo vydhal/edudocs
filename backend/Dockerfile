@@ -20,4 +20,4 @@ RUN npx prisma generate
 EXPOSE 3001
 
 # Start command (using migrate deploy to ensure DB is compliant)
-CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
+CMD ["sh", "-c", "sleep 10 && npx prisma migrate deploy && npm start"]
