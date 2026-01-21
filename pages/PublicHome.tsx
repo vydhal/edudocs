@@ -282,7 +282,7 @@ const PublicHome: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex gap-3">
-                                    <a href={getAssetUrl(doc.fileUrl)} target="_blank" rel="noopener noreferrer" className="flex-1 bg-[var(--primary-color)] hover:opacity-90 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity">
+                                    <a href={getAssetUrl(doc.fileUrl)} download className="flex-1 bg-[var(--primary-color)] hover:opacity-90 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity">
                                         <span className="material-symbols-outlined text-lg">download</span>
                                         Baixar
                                     </a>

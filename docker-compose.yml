@@ -4,6 +4,18 @@ services:
   # 1. Backend API
   backend:
     image: vydhal/edudocs-backend:latest
+    environment:
+      # Conecta ao Postgres usando o nome do serviço na rede interna
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@edudocs_db:5432/${POSTGRES_DB}?schema=public
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=${PORT}
+    depends_on:
+      - edudocs_db
+    volumes:
+      - edudocs_uploads:/app/uploads
+    networks:
+      - SimpliSoft # Para falar com o Traefik
+      - interna_network_docs # Para falar com o Postgres
     deploy:
       replicas: 1
       restart_policy:
@@ -17,22 +29,12 @@ services:
         - "traefik.http.routers.edudocs-backend.entrypoints=websecure"
         - "traefik.http.routers.edudocs-backend.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.edudocs-backend.loadbalancer.server.port=3001"
-    environment:
-      # Conecta ao Postgres usando o nome do serviço na rede interna
-      DATABASE_URL: postgresql://superadmin:Admin123@postgres:5432/edudocs?schema=public
-      PORT: 3001
-      JWT_SECRET: EduDocs_JWT_Secure_Token_v1
-    depends_on:
-      - postgres
-    volumes:
-      - edudocs_uploads:/app/uploads
-    networks:
-      - SimpliSoft # Para falar com o Traefik
-      - app_network # Para falar com o Postgres
 
   # 2. Frontend
   frontend:
     image: vydhal/edudocs-frontend:latest
+    environment:
+      - VITE_API_URL=https://edudocs.simplisoft.com.br/api
     deploy:
       replicas: 1
       restart_policy:
@@ -49,7 +51,7 @@ services:
       - SimpliSoft
 
   # 3. Banco de Dados
-  postgres:
+  edudocs_db:
     image: postgres:15-alpine
     deploy:
       replicas: 1
@@ -58,15 +60,15 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      - POSTGRES_USER=superadmin
-      - POSTGRES_PASSWORD=Admin123
-      - POSTGRES_DB=edudocs
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_data_v5:/var/lib/postgresql/data
     networks:
-      - app_network
+      - interna_network_docs
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U superadmin -d edudocs" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -81,6 +83,6 @@ networks:
   SimpliSoft:
     external: true
   # Rede interna para comunicação Backend <-> DB
-  app_network:
+  interna_network_docs:
     driver: overlay
     attachable: true
