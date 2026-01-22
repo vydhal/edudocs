@@ -120,25 +120,38 @@ const PublicHome: React.FC = () => {
 
     return (
         <div className="bg-[#f9fafa] dark:bg-[#121617] min-h-screen text-[#121617] dark:text-white font-public transition-colors duration-200">
-
+            
+            {/* Mobile Header (Sticky & Native Feel) */}
+            <div className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#121617]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 md:hidden px-4 h-16 flex items-center justify-center transition-all duration-300">
+                {logoUrl ? (
+                    <img src={getAssetUrl(logoUrl)} alt="EduDocs Logo" className="h-8 object-contain" />
+                ) : (
+                    <div className="flex items-center gap-2">
+                         <div className="size-8 bg-[var(--primary-color)] rounded-lg flex items-center justify-center text-white">
+                            <span className="material-symbols-outlined text-lg">description</span>
+                        </div>
+                        <span className="font-bold text-lg tracking-tight">EduDocs</span>
+                    </div>
+                )}
+            </div>
 
             {/* Hero Section */}
-            <section id="inicio" className="pt-32 pb-20 px-4 text-center relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[var(--primary-color)]/20 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+            <section id="inicio" className="pt-28 md:pt-32 pb-16 md:pb-20 px-4 text-center relative overflow-hidden">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full md:w-[800px] h-[500px] bg-[var(--primary-color)]/20 rounded-full blur-[100px] md:blur-[120px] -z-10 pointer-events-none"></div>
                 <div className="max-w-3xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 md:mb-6">
                         Transparência e <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] brightness-125">Acesso Rápido</span>
                     </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">
-                        Bem-vindo ao portal oficial de documentos da Secretaria de Educação. 
-                        Encontre editais, portarias, resoluções e outros arquivos importantes de forma simples e ágil.
+                    <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 md:mb-10 leading-relaxed max-w-xl mx-auto">
+                        Bem-vindo ao portal oficial de documentos. 
+                        Encontre editais, portarias e resoluções de forma simples.
                     </p>
                     
-                    {/* Search Bar */}
-                    <div className="relative max-w-2xl mx-auto mb-16 group">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] rounded-2xl opacity-10 dark:opacity-20 group-hover:opacity-20 dark:group-hover:opacity-30 blur transition-opacity"></div>
-                        <div className="relative flex items-center bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 rounded-2xl p-2 shadow-2xl gap-3">
-                            <span className="material-symbols-outlined text-gray-400 dark:text-gray-500 ml-3 text-xl">search</span>
+                    {/* Search Bar - Mobile Native Style */}
+                    <div className="relative max-w-2xl mx-auto mb-10 md:mb-16 group">
+                        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] rounded-2xl opacity-10 blur transition-opacity"></div>
+                        <div className="relative flex items-center bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 rounded-2xl p-2 shadow-lg md:shadow-2xl gap-2 md:gap-3 transition-shadow focus-within:ring-2 ring-[var(--primary-color)]/20 ring-offset-2 dark:ring-offset-[#121617]">
+                            <span className="material-symbols-outlined text-gray-400 ml-2 md:ml-3">search</span>
                             <input 
                                 type="text"
                                 placeholder="Busque por editais, resoluções..."

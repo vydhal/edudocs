@@ -88,10 +88,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
                         <span className="material-symbols-outlined">home</span>
                         <span className={navTextClass}>Início</span>
                     </button>
-                    <button onClick={() => navigate('/search')} className={`${navButtonClass} ${!isActive('/search') && inactiveClass}`} style={isActive('/search') ? activeStyle : {}}>
-                        <span className="material-symbols-outlined">description</span>
-                        <span className={navTextClass}>Documentos</span>
-                    </button>
+                    {/* Documentos link removed as requested */}
                     <button onClick={() => navigate('/login')} className={`${navButtonClass} ${inactiveClass}`}>
                         <span className="material-symbols-outlined">login</span>
                         <span className={navTextClass}>Login</span>
