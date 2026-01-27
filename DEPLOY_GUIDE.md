@@ -1,131 +1,99 @@
-# Guia de Deploy V4: VPS com Traefik Pré-instalado
+# Guia de Deploy V5: Release "Download Tracking"
 
-Este guia é específico para implantar a aplicação em um ambiente **Swarm** que já possui o Traefik rodando e a rede externa `SimpliSoft`.
-
----
-
-## 🌎 Passo 1: DNS
-
-Certifique-se de que o domínio `edudocs.simplisoft.com.br` aponta para o IP do Manager/Cluster.
+Este guia cobre o processo de deploy da funcionalidade de **Rastreamento de Downloads** para o ambiente de produção (Swarm/Portainer).
 
 ---
 
-## 🐳 Passo 2: Stack no Portainer
+## 🚀 Passo 1: Preparar Imagens (Build & Push)
 
-Como o Traefik já existe, removemos ele da stack e apenas conectamos os serviços à rede pública `SimpliSoft`.
+Você deve executar esses comandos na sua máquina local, onde o código foi testado.
 
-1.  Crie uma nova Stack (ou atualize a existente).
-2.  Use o modo **Upload** para subir o arquivo `docker-compose.yml`.
-
----
-
-## 🔐 Passo 3: Criar Usuário Admin (Primeiro Acesso)
-
-Como o banco de dados é novo, ele vem vazio. Você precisa rodar o comando de "seed" para criar o usuário administrador.
-
-1.  No Portainer, vá em **Containers**.
-2.  Localize o container do backend (algo como `edudocs_backend...`).
-3.  Clique no ícone de **Console** (>_) desse container.
-4.  Clique em **Connect** (pode deixar `bin/bash` ou `sh` como padrão).
-5.  No terminal que abrir, digite:
-    ```bash
-    npx prisma db seed
-    ```
-6.  Se aparecer o log `{ user: ... }`, o usuário foi criado.
-
-### Credenciais Padrão
-*   **Email**: `admin@edudocs.com`
-*   **Senha**: `admin123`
-
-> **Nota**: Após logar, altere sua senha imediatamente na tela de Perfil ou Configurações.
-
----
-
-## 🔄 Fluxo de Atualização (CI/CD Manual)
-
-Para atualizar a aplicação com novas alterações do código, siga os passos abaixo:
-
-### 1. Build e Push da Imagem (Na sua máquina local)
-
-Abra o terminal na raiz do projeto (onde está o `Dockerfile`) e execute:
-
+### 1. Login no Docker Hub
+Certifique-se de estar logado:
 ```bash
-# 1. Construir a nova imagem do Frontend
-docker build -t vydhal/edudocs-frontend:latest .
-
-# 2. Enviar para o Docker Hub
-docker push vydhal/edudocs-frontend:latest
+docker login
+# Insira seu usuário e senha do Docker Hub se solicitado
 ```
 
-> **Nota para Backend**: Se houver alterações no backend, entre na pasta `backend/` e faça o mesmo processo para `vydhal/edudocs-backend:latest`.
+### 2. Backend (API)
+Atualize a imagem do backend que contém a nova lógica de rastreamento e correções de conexão.
 
-### 2. Atualizar no Portainer
-
-1.  Acesse o **Portainer**.
-2.  Vá em **Services** (se estiver usando Swarm) e encontre o serviço `edudocs_frontend`.
-3.  Clique no nome do serviço para ver os detalhes.
-4.  Clique no botão **Update** (ou "Apply changes").
-5.  **Importante**: Marque a opção **"Pull latest image version"** (ou similar) para garantir que ele baixe a versão nova que você acabou de subir.
-6.  Confirme a atualização. O Swarm irá substituir os containers antigos pelos novos sem downtime perceptível.
-
-## ❓ Solução de Problemas (Troubleshooting)
-
-### Erro: "Authentication failed against database server" (P1000)
-
-**Sintoma:** O backend fica reiniciando e os logs mostram erro de credenciais inválidas para o usuário `admin`.
-
-**Causa:** O banco de dados Postgres já foi inicializado anteriormente com uma senha diferente (ou padrão) e os dados foram persistidos no **Volume**. Alterar a senha no `docker-compose.yml` **não altera** a senha de um banco que já existe.
-
-**Solução 1: Resetar o Banco (Se não houver dados importantes)**
-1.  No Portainer, vá em **Volumes**.
-2.  Encontre o volume do postgres (geralmente `edudocs_postgres_data` ou similar).
-3.  Selecione e clique em **Remove**. (Você precisará parar a Stack antes).
-4.  Suba a Stack novamente. O banco será recriado com a senha nova do arquivo.
-5.  Execute o Seed novamente (`npx prisma db seed`).
-
-**Solução 2: Atualizar Senha Manualmente**
-1.  Acesse o Console do container `postgres`.
-2.  Entre no banco: `psql -U admin -d edudocs`
-3.  Execute o comando SQL:
-    ```sql
-    ALTER USER admin WITH PASSWORD 'EduDocs_Secure_DB_Pass_2026';
-    ```
-4.  Reinicie o serviço do Backend.
-
-## ☢️ Procedimento de Reinstalação Limpa (Nuclear Option)
-
-Se você precisa resetar tudo e começar do zero (com banco limpo e seeds atualizadas):
-
-### 1. Atualizar Imagens
-No seu terminal local:
 ```bash
-# Entre na pasta do backend para garantir que o seed novo vá junto
 cd backend
+# Build da nova versão
 docker build -t vydhal/edudocs-backend:latest .
+# Envio para o Docker Hub
 docker push vydhal/edudocs-backend:latest
 cd ..
 ```
 
-### 2. Limpeza no Portainer
-1.  **Stop Stack**: Pare a stack `edudocs`.
-2.  **Delete Containers**: Vá em 'Containers', selecione todos do `edudocs` e clique em Remove.
-3.  **Delete Volumes**: Vá em 'Volumes' e delete:
-    *   `edudocs_postgres_data` (e `_v2` se existir)
-    *   `edudocs_edudocs_uploads`
-    *   Basicamente tudo que tiver `edudocs` no nome.
-4.  **Delete Images** (Opcional mas recomendado): Vá em 'Images' e delete `vydhal/edudocs-backend:latest` para forçar o Portainer a baixar a nova versão que você acabou de dar push.
+### 3. Frontend (Interface)
+Atualize a imagem do frontend com o novo botão de download e dashboard.
 
-### 3. Redeploy
-1.  Volte na Stack.
-2.  Faça o upload do `docker-compose.yml` (se tiver mudado algo).
-3.  Clique em **Deploy the Stack**.
-4.  Certifique-se de marcar "Pull latest image version" se for apenas um Update.
+```bash
+# Build da nova versão
+docker build -t vydhal/edudocs-frontend:latest .
+# Envio para o Docker Hub
+docker push vydhal/edudocs-frontend:latest
+```
 
-### 4. Popular Banco de Dados
-Assim que o Backend subir (ficar verde):
-1.  Console > `edudocs_backend` > Connect.
-2.  Rode:
-    ```bash
-    npx prisma db seed
-    ```
-3.  Pronto! Logue com o admin configurado (`vydhal@gmail.com`).
+---
+
+## ⚙️ Passo 2: Configuração no Portainer
+
+Para que o backend conecte corretamente ao banco em produção, precisamos garantir que as variáveis de ambiente da Stack estejam corretas.
+
+1.  Acesse o **Portainer**.
+2.  Vá em **Stacks** e selecione a stack `edudocs`.
+3.  Clique na aba **Editor**.
+4.  Verifique a seção **Environment variables** (abaixo do editor de texto ou em um arquivo .env separado se configurado).
+5.  **Garanta que as seguintes variáveis estejam definidas** com os valores que você deseja para produção (ou use os padrões se for a primeira vez, mas **anote-os**):
+
+    *   `POSTGRES_USER`: `Admin` (Conforme sua configuração atual - MANTENHA ASSIM)
+    *   `POSTGRES_PASSWORD`: `Admin123` (Conforme sua configuração atual - MANTENHA ASSIM)
+    *   `POSTGRES_DB`: `edudocs`
+    *   `JWT_SECRET`: (Mantenha o valor atual ou gere um novo se for o primeiro deploy)
+    *   `PORT`: `3001`
+
+    > **CRÍTICO:** Sua imagem mostra que o usuário é `Admin` e a senha `Admin123`. Você **DEVE** usar esses valores exatos. Se você colocar `admin` (minúsculo) ou `superadmin`, o sistema não conseguirá ler o banco de dados antigo e dará erro de autenticação.
+
+---
+
+## 🔄 Passo 3: Atualizar Serviços
+
+Após subir as imagens e conferir as variáveis:
+
+1.  Ainda na tela da Stack `edudocs` no Portainer.
+2.  Clique no botão **Update the stack**.
+3.  **IMPORTANTE:** Marque a opção **"Re-pull image and redeploy"**. Isso força o download das versões `:latest` que você acabou de subir.
+4.  Confirme a atualização.
+
+---
+
+## ✅ Passo 4: Verificação Pós-Deploy
+
+1.  Acesse `https://edudocs.simplisoft.com.br`.
+2.  **Teste de Download:**
+    *   Vá para a Home (sem logar).
+    *   Encontre um documento qualquer.
+    *   Clique em **"Baixar"**.
+    *   O download deve iniciar normalmente.
+3.  **Teste de Admin:**
+    *   Acesse `https://edudocs.simplisoft.com.br/login`.
+    *   Logue com `vydhal@gmail.com` / `Vydhal@112358` (ou sua senha de produção se já tiver alterado).
+    *   No Dashboard, procure pelo card **"Total Downloads"**.
+    *   Ele deve mostrar pelo menos **1** (do seu teste agora).
+
+---
+
+## ❓ Solução de Problemas (Troubleshooting)
+
+### Erro: "Authentication failed" no Backend
+Se os logs do backend reclamarem de senha, e você já tem dados no banco de produção que não quer perder:
+1.  Não mude a senha no `.env`.
+2.  Descubra qual senha foi usada originalmente (se possível).
+3.  OU, se puder resetar o banco (PERDERÁ DADOS):
+    *   Pare a stack.
+    *   Vá em Volumes e remova o volume do postgres.
+    *   Suba a stack novamente (ele será recriado com a senha das variáveis).
+    *   Rode o seed: `docker exec -it <container_id_backend> npx prisma db seed`.

@@ -256,4 +256,19 @@ const exportDocuments = async (req, res) => {
     }
 };
 
-module.exports = { getAllDocuments, uploadDocument, deleteDocument, getDocumentVersions, exportDocuments, createDocumentVersion };
+const trackDownload = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await prisma.document.update({
+            where: { id: parseInt(id) },
+            data: { downloads: { increment: 1 } }
+        });
+        res.status(200).json({ message: 'Download tracked' });
+    } catch (error) {
+        console.error('Error tracking download:', error);
+        // Do not block download if tracking fails, but returns error
+        res.status(500).json({ message: 'Error tracking download' });
+    }
+};
+
+module.exports = { getAllDocuments, uploadDocument, deleteDocument, getDocumentVersions, exportDocuments, createDocumentVersion, trackDownload };

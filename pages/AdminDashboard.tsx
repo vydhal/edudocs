@@ -8,6 +8,8 @@ const AdminDashboard: React.FC = () => {
     const [stats, setStats] = useState({
         totalDocuments: 0,
         recentUploads: 0,
+        totalDownloads: 0,
+        topDocuments: [],
         analyticsData: []
     });
     const [recentDocs, setRecentDocs] = useState<any[]>([]);
@@ -73,10 +75,11 @@ const AdminDashboard: React.FC = () => {
                         </div>
                     </div>
                      {/* Placeholder for other stats */}
-                     <div className="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-800 shadow-sm opacity-50">
-                        <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider">Usuários Ativos</p>
+                     <div className="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-800 shadow-sm transition-transform hover:scale-[1.02]">
+                        <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider">Total Downloads</p>
                         <div className="flex items-baseline gap-2">
-                            <p className="text-[#121617] dark:text-white text-2xl font-bold">--</p>
+                            <p className="text-[#121617] dark:text-white text-2xl font-bold">{stats.totalDownloads}</p>
+                            <span className="text-[#078836] text-xs font-bold">+12%</span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-800 shadow-sm opacity-50">
@@ -143,6 +146,32 @@ const AdminDashboard: React.FC = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+
+                <div className="px-4 pt-8 pb-2 border-b border-gray-100 dark:border-gray-800 mb-4 mt-4">
+                     <h3 className="text-[#121617] dark:text-white text-lg font-bold tracking-tight">Mais Baixados</h3>
+                </div>
+
+                <div className="px-4 mb-10">
+                    <div className="flex flex-col bg-white dark:bg-[#1e2329] rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+                        <div className="grid grid-cols-12 gap-2 p-4 border-b border-gray-50 dark:border-gray-700 bg-gray-50/50 dark:bg-[#2c333a]/50">
+                            <div className="col-span-8 md:col-span-10 text-[10px] font-bold uppercase tracking-wider text-gray-400">Documento</div>
+                            <div className="col-span-4 md:col-span-2 text-[10px] font-bold uppercase tracking-wider text-gray-400 text-right">Downloads</div>
+                        </div>
+                        {stats.topDocuments && stats.topDocuments.length > 0 ? (stats.topDocuments as any[]).map((doc, idx) => (
+                            <div key={idx} className="grid grid-cols-12 gap-2 p-4 items-center border-b border-gray-50 dark:border-gray-700 last:border-0 hover:bg-gray-50 dark:hover:bg-[#2c333a] transition-colors">
+                                <div className="col-span-8 md:col-span-10 flex flex-col">
+                                    <span className="text-sm font-bold text-[#121617] dark:text-white truncate">{doc.title}</span>
+                                    {doc.sector && <span className="text-[10px] text-gray-400">{doc.sector.name}</span>}
+                                </div>
+                                <div className="col-span-4 md:col-span-2 text-right">
+                                    <span className="text-sm font-bold text-[var(--primary-color)]">{doc.downloads}</span>
+                                </div>
+                            </div>
+                        )) : (
+                            <div className="p-8 text-center text-gray-400 text-sm">Nenhum dado disponível.</div>
+                        )}
+                    </div>
                 </div>
             </main>
 
