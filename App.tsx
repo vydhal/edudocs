@@ -11,6 +11,7 @@ import AdminUpload from './pages/AdminUpload';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminSettings from './pages/AdminSettings';
 import AdminLinks from './pages/AdminLinks';
+import AdminSuggestions from './pages/AdminSuggestions';
 import DocumentVersions from './pages/DocumentVersions';
 import BottomNav from './components/BottomNav';
 import ProtectedRoute from './src/components/ProtectedRoute';
@@ -18,7 +19,7 @@ import api from './src/api/api';
 
 const Layout = ({ children, type }: { children?: React.ReactNode, type: 'public' | 'admin' | 'editor' | 'none' | 'auto' }) => {
     let navType = type;
-    
+
     if (type === 'auto' || type === 'public') {
         const userStr = localStorage.getItem('user');
         if (userStr) {
@@ -51,7 +52,7 @@ const App: React.FC = () => {
             const response = await api.get('/settings');
             if (response.data) {
                 const { themeColor, darkMode } = response.data;
-                
+
                 // Apply Theme Color
                 if (themeColor) {
                     document.documentElement.style.setProperty('--primary-color', themeColor);
@@ -75,7 +76,7 @@ const App: React.FC = () => {
                 {/* Public Routes */}
                 <Route path="/" element={<Layout type="public"><PublicHome /></Layout>} />
                 <Route path="/search" element={<Layout type="public"><SearchResults /></Layout>} />
-                
+
                 {/* Auth */}
                 <Route path="/login" element={<Layout type="none"><Login /></Layout>} />
 
@@ -88,6 +89,7 @@ const App: React.FC = () => {
                     <Route path="/admin/users/new" element={<Layout type="none"><AdminUserNew /></Layout>} />
                     <Route path="/admin/analytics" element={<Layout type="auto"><AdminAnalytics /></Layout>} />
                     <Route path="/admin/links" element={<Layout type="auto"><AdminLinks /></Layout>} />
+                    <Route path="/admin/suggestions" element={<Layout type="auto"><AdminSuggestions /></Layout>} />
                     <Route path="/admin/settings" element={<Layout type="auto"><AdminSettings /></Layout>} />
                     <Route path="/document/:id/versions" element={<Layout type="none"><DocumentVersions /></Layout>} />
                 </Route>

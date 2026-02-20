@@ -24,22 +24,30 @@ const PublicHome: React.FC = () => {
     const [links, setLinks] = useState<any[]>([]);
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<'documents' | 'links'>('documents');
-    
+    const [activeTab, setActiveTab] = useState<'documents' | 'links' | 'suggest'>('documents');
+
     const [docPage, setDocPage] = useState(1);
     const [docTotalPages, setDocTotalPages] = useState(1);
     const [linkPage, setLinkPage] = useState(1);
     const [linkTotalPages, setLinkTotalPages] = useState(1);
-    
+
     // Filters
     const [sectors, setSectors] = useState<any[]>([]);
     const [modalities, setModalities] = useState<any[]>([]);
     const [selectedSector, setSelectedSector] = useState('');
     const [selectedModality, setSelectedModality] = useState('');
     const [selectedType, setSelectedType] = useState('');
-    
+
     const [logoUrl, setLogoUrl] = useState('');
 
+    // Suggestion Form State
+    const [suggestTitle, setSuggestTitle] = useState('');
+    const [suggestDesc, setSuggestDesc] = useState('');
+    const [suggestName, setSuggestName] = useState('');
+    const [suggestFile, setSuggestFile] = useState<File | null>(null);
+    const [suggestLoading, setSuggestLoading] = useState(false);
+    const [suggestSuccess, setSuggestSuccess] = useState(false);
+    const [suggestError, setSuggestError] = useState('');
     useEffect(() => {
         fetchClassifications();
         fetchSettings();
@@ -114,20 +122,58 @@ const PublicHome: React.FC = () => {
         }
     };
 
+    const handleSuggestSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSuggestError('');
+        setSuggestSuccess(false);
+
+        if (!suggestTitle.trim()) {
+            setSuggestError('O título é obrigatório.');
+            return;
+        }
+
+        setSuggestLoading(true);
+        try {
+            const formData = new FormData();
+            formData.append('title', suggestTitle);
+            if (suggestDesc) formData.append('description', suggestDesc);
+            if (suggestName) formData.append('suggesterName', suggestName);
+            if (suggestFile) formData.append('file', suggestFile);
+
+            await api.post('/suggestions', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            setSuggestSuccess(true);
+            setSuggestTitle('');
+            setSuggestDesc('');
+            setSuggestName('');
+            setSuggestFile(null);
+
+            // Clear success message after 5 seconds
+            setTimeout(() => setSuggestSuccess(false), 5000);
+        } catch (error: any) {
+            console.error('Error submitting suggestion:', error);
+            setSuggestError(error.response?.data?.error || 'Erro ao enviar sugestão. Tente novamente.');
+        } finally {
+            setSuggestLoading(false);
+        }
+    };
+
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const isLogged = !!localStorage.getItem('token');
     const userInitials = user.name ? user.name.substring(0, 2).toUpperCase() : 'US';
 
     return (
         <div className="bg-[#f9fafa] dark:bg-[#121617] min-h-screen text-[#121617] dark:text-white font-public transition-colors duration-200">
-            
+
             {/* Mobile Header (Sticky & Native Feel) */}
             <div className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#121617]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 md:hidden px-4 h-16 flex items-center justify-center transition-all duration-300">
                 {logoUrl ? (
                     <img src={getAssetUrl(logoUrl)} alt="EduDocs Logo" className="h-8 object-contain" />
                 ) : (
                     <div className="flex items-center gap-2">
-                         <div className="size-8 bg-[var(--primary-color)] rounded-lg flex items-center justify-center text-white">
+                        <div className="size-8 bg-[var(--primary-color)] rounded-lg flex items-center justify-center text-white">
                             <span className="material-symbols-outlined text-lg">description</span>
                         </div>
                         <span className="font-bold text-lg tracking-tight">EduDocs</span>
@@ -143,16 +189,16 @@ const PublicHome: React.FC = () => {
                         Transparência e <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] brightness-125">Acesso Rápido</span>
                     </h1>
                     <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 md:mb-10 leading-relaxed max-w-xl mx-auto">
-                        Bem-vindo ao portal oficial de documentos. 
+                        Bem-vindo ao portal oficial de documentos.
                         Encontre editais, portarias e resoluções de forma simples.
                     </p>
-                    
+
                     {/* Search Bar - Mobile Native Style */}
                     <div className="relative max-w-2xl mx-auto mb-10 md:mb-16 group">
                         <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] rounded-2xl opacity-10 blur transition-opacity"></div>
                         <div className="relative flex items-center bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 rounded-2xl p-2 shadow-lg md:shadow-2xl gap-2 md:gap-3 transition-shadow focus-within:ring-2 ring-[var(--primary-color)]/20 ring-offset-2 dark:ring-offset-[#121617]">
                             <span className="material-symbols-outlined text-gray-400 ml-2 md:ml-3">search</span>
-                            <input 
+                            <input
                                 type="text"
                                 placeholder="Busque por editais, resoluções..."
                                 value={search}
@@ -197,21 +243,27 @@ const PublicHome: React.FC = () => {
 
             {/* Content Section (Tabs) */}
             <section id="conteudo" className="py-12 px-4 max-w-7xl mx-auto min-h-[600px]">
-                
+
                 {/* Tabs */}
                 <div className="flex justify-center mb-10">
                     <div className="bg-gray-100 dark:bg-[#1e2329] p-1.5 rounded-2xl flex gap-2">
-                        <button 
+                        <button
                             onClick={() => setActiveTab('documents')}
                             className={`px-8 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === 'documents' ? 'bg-white dark:bg-[#2c333a] text-[var(--primary-color)] shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
                         >
                             Documentos
                         </button>
-                        <button 
+                        <button
                             onClick={() => setActiveTab('links')}
                             className={`px-8 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === 'links' ? 'bg-white dark:bg-[#2c333a] text-[var(--primary-color)] shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
                         >
                             Links Úteis
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('suggest')}
+                            className={`px-8 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === 'suggest' ? 'bg-white dark:bg-[#2c333a] text-[var(--primary-color)] shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
+                        >
+                            Sugerir Documento
                         </button>
                     </div>
                 </div>
@@ -228,8 +280,8 @@ const PublicHome: React.FC = () => {
                         {/* Filters */}
                         <div className="flex flex-wrap gap-3 mb-8">
                             <div className="relative min-w-[180px]">
-                                <select 
-                                    value={selectedSector} 
+                                <select
+                                    value={selectedSector}
                                     onChange={(e) => setSelectedSector(e.target.value)}
                                     className="w-full appearance-none pl-4 pr-10 py-3 rounded-xl bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 text-[#121617] dark:text-white text-sm focus:outline-none focus:border-[var(--primary-color)] focus:ring-1 focus:ring-[var(--primary-color)]"
                                 >
@@ -240,8 +292,8 @@ const PublicHome: React.FC = () => {
                             </div>
 
                             <div className="relative min-w-[180px]">
-                                <select 
-                                    value={selectedModality} 
+                                <select
+                                    value={selectedModality}
                                     onChange={(e) => setSelectedModality(e.target.value)}
                                     className="w-full appearance-none pl-4 pr-10 py-3 rounded-xl bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 text-[#121617] dark:text-white text-sm focus:outline-none focus:border-[var(--primary-color)] focus:ring-1 focus:ring-[var(--primary-color)]"
                                 >
@@ -252,8 +304,8 @@ const PublicHome: React.FC = () => {
                             </div>
 
                             <div className="relative min-w-[150px]">
-                                <select 
-                                    value={selectedType} 
+                                <select
+                                    value={selectedType}
                                     onChange={(e) => setSelectedType(e.target.value)}
                                     className="w-full appearance-none pl-4 pr-10 py-3 rounded-xl bg-white dark:bg-[#1e2329] border border-gray-200 dark:border-gray-700 text-[#121617] dark:text-white text-sm focus:outline-none focus:border-[var(--primary-color)] focus:ring-1 focus:ring-[var(--primary-color)]"
                                 >
@@ -267,71 +319,71 @@ const PublicHome: React.FC = () => {
                             </div>
                         </div>
 
-                {/* List */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    {loading ? (
-                        <p className="text-gray-500 col-span-3 text-center py-10">Carregando documentos...</p>
-                    ) : documents.length === 0 ? (
-                        <div className="col-span-3 text-center py-20 bg-white dark:bg-[#1e2329] rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
-                            <span className="material-symbols-outlined text-gray-400 dark:text-gray-600 text-5xl mb-4">folder_off</span>
-                            <p className="text-gray-500 dark:text-gray-400">Nenhum documento encontrado.</p>
-                        </div>
-                    ) : (
-                        documents.map(doc => (
-                            <div key={doc.id} className="bg-white dark:bg-[#1e2329] rounded-2xl border border-gray-200 dark:border-gray-800 p-5 hover:border-[var(--primary-color)]/50 transition-colors group flex flex-col justify-between h-full shadow-sm dark:shadow-none">
-                                <div>
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div className="w-10 h-10 rounded-lg bg-[var(--primary-color)]/10 text-[var(--primary-color)] flex items-center justify-center">
-                                            <span className="material-symbols-outlined">description</span>
+                        {/* List */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            {loading ? (
+                                <p className="text-gray-500 col-span-3 text-center py-10">Carregando documentos...</p>
+                            ) : documents.length === 0 ? (
+                                <div className="col-span-3 text-center py-20 bg-white dark:bg-[#1e2329] rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
+                                    <span className="material-symbols-outlined text-gray-400 dark:text-gray-600 text-5xl mb-4">folder_off</span>
+                                    <p className="text-gray-500 dark:text-gray-400">Nenhum documento encontrado.</p>
+                                </div>
+                            ) : (
+                                documents.map(doc => (
+                                    <div key={doc.id} className="bg-white dark:bg-[#1e2329] rounded-2xl border border-gray-200 dark:border-gray-800 p-5 hover:border-[var(--primary-color)]/50 transition-colors group flex flex-col justify-between h-full shadow-sm dark:shadow-none">
+                                        <div>
+                                            <div className="flex justify-between items-start mb-4">
+                                                <div className="w-10 h-10 rounded-lg bg-[var(--primary-color)]/10 text-[var(--primary-color)] flex items-center justify-center">
+                                                    <span className="material-symbols-outlined">description</span>
+                                                </div>
+                                                <span className="px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-[10px] font-bold uppercase tracking-wider">
+                                                    {doc.type || 'DOC'}
+                                                </span>
+                                            </div>
+                                            <h3 className="text-lg font-bold text-[#121617] dark:text-white mb-2 leading-snug group-hover:text-[var(--primary-color)] transition-colors">{doc.title}</h3>
+                                            <div className="flex flex-wrap gap-2 text-xs text-gray-500 mb-4">
+                                                {doc.sector && <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">domain</span> {doc.sector.name}</span>}
+                                                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">calendar_today</span> {new Date(doc.createdAt).toLocaleDateString()}</span>
+                                            </div>
                                         </div>
-                                        <span className="px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-[10px] font-bold uppercase tracking-wider">
-                                            {doc.type || 'DOC'}
-                                        </span>
+                                        <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex gap-3">
+                                            <a
+                                                href={getAssetUrl(doc.fileUrl)}
+                                                download
+                                                onClick={() => api.post(`/documents/${doc.id}/download`)}
+                                                className="flex-1 bg-[var(--primary-color)] hover:opacity-90 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity"
+                                            >
+                                                <span className="material-symbols-outlined text-lg">download</span>
+                                                Baixar
+                                            </a>
+                                        </div>
                                     </div>
-                                    <h3 className="text-lg font-bold text-[#121617] dark:text-white mb-2 leading-snug group-hover:text-[var(--primary-color)] transition-colors">{doc.title}</h3>
-                                    <div className="flex flex-wrap gap-2 text-xs text-gray-500 mb-4">
-                                        {doc.sector && <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">domain</span> {doc.sector.name}</span>}
-                                        <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">calendar_today</span> {new Date(doc.createdAt).toLocaleDateString()}</span>
-                                    </div>
-                                </div>
-                                <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex gap-3">
-                                    <a 
-                                        href={getAssetUrl(doc.fileUrl)} 
-                                        download 
-                                        onClick={() => api.post(`/documents/${doc.id}/download`)}
-                                        className="flex-1 bg-[var(--primary-color)] hover:opacity-90 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity"
-                                    >
-                                        <span className="material-symbols-outlined text-lg">download</span>
-                                        Baixar
-                                    </a>
-                                </div>
+                                ))
+                            )}
+                        </div>
+
+                        {/* Documents Pagination */}
+                        {docTotalPages > 1 && (
+                            <div className="flex justify-center gap-2">
+                                <button
+                                    onClick={() => setDocPage(p => Math.max(1, p - 1))}
+                                    disabled={docPage === 1}
+                                    className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1e2329] text-gray-600 dark:text-gray-400 disabled:opacity-50 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                                >
+                                    Anterior
+                                </button>
+                                <span className="px-4 py-2 font-bold text-gray-600 dark:text-gray-400">Página {docPage} de {docTotalPages}</span>
+                                <button
+                                    onClick={() => setDocPage(p => Math.min(docTotalPages, p + 1))}
+                                    disabled={docPage === docTotalPages}
+                                    className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1e2329] text-gray-600 dark:text-gray-400 disabled:opacity-50 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                                >
+                                    Próxima
+                                </button>
                             </div>
-                        ))
-                    )}
-                </div>
-                
-                {/* Documents Pagination */}
-                {docTotalPages > 1 && (
-                    <div className="flex justify-center gap-2">
-                        <button 
-                            onClick={() => setDocPage(p => Math.max(1, p - 1))}
-                            disabled={docPage === 1}
-                            className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1e2329] text-gray-600 dark:text-gray-400 disabled:opacity-50 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                        >
-                            Anterior
-                        </button>
-                        <span className="px-4 py-2 font-bold text-gray-600 dark:text-gray-400">Página {docPage} de {docTotalPages}</span>
-                        <button 
-                            onClick={() => setDocPage(p => Math.min(docTotalPages, p + 1))}
-                            disabled={docPage === docTotalPages}
-                            className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1e2329] text-gray-600 dark:text-gray-400 disabled:opacity-50 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                        >
-                            Próxima
-                        </button>
-                    </div>
-                )}
+                        )}
                     </>
-                ) : (
+                ) : activeTab === 'links' ? (
                     <>
                         <div className="mb-8">
                             <h2 className="text-3xl font-bold mb-2 text-[#121617] dark:text-white">Links Úteis</h2>
@@ -369,7 +421,7 @@ const PublicHome: React.FC = () => {
                         {/* Links Pagination */}
                         {linkTotalPages > 1 && (
                             <div className="flex justify-center gap-2">
-                                <button 
+                                <button
                                     onClick={() => setLinkPage(p => Math.max(1, p - 1))}
                                     disabled={linkPage === 1}
                                     className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1e2329] text-gray-600 dark:text-gray-400 disabled:opacity-50 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -377,7 +429,7 @@ const PublicHome: React.FC = () => {
                                     Anterior
                                 </button>
                                 <span className="px-4 py-2 font-bold text-gray-600 dark:text-gray-400">Página {linkPage} de {linkTotalPages}</span>
-                                <button 
+                                <button
                                     onClick={() => setLinkPage(p => Math.min(linkTotalPages, p + 1))}
                                     disabled={linkPage === linkTotalPages}
                                     className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1e2329] text-gray-600 dark:text-gray-400 disabled:opacity-50 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -387,7 +439,106 @@ const PublicHome: React.FC = () => {
                             </div>
                         )}
                     </>
-                )}
+                ) : activeTab === 'suggest' ? (
+                    <div className="max-w-3xl mx-auto bg-white dark:bg-[#1e2329] p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800">
+                        <div className="mb-8">
+                            <h2 className="text-3xl font-bold mb-2 text-[#121617] dark:text-white">Sugerir Documento</h2>
+                            <p className="text-gray-500 dark:text-gray-400">Tem um edital ou portaria que deveria estar aqui? Envie para analisarmos!</p>
+                        </div>
+
+                        {suggestSuccess && (
+                            <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-xl border border-green-200 dark:border-green-800 flex items-center gap-3">
+                                <span className="material-symbols-outlined">check_circle</span>
+                                Sugestão enviada com sucesso! Nossa equipe analisará em breve.
+                            </div>
+                        )}
+
+                        {suggestError && (
+                            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-xl border border-red-200 dark:border-red-800 flex items-center gap-3">
+                                <span className="material-symbols-outlined">error</span>
+                                {suggestError}
+                            </div>
+                        )}
+
+                        <form onSubmit={handleSuggestSubmit} className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Título do Documento *</label>
+                                <input
+                                    type="text"
+                                    required
+                                    value={suggestTitle}
+                                    onChange={(e) => setSuggestTitle(e.target.value)}
+                                    placeholder="Ex: Edital Processo Seletivo 2026"
+                                    className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-[#121617] border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-[var(--primary-color)] focus:ring-1 focus:ring-[var(--primary-color)] transition-all dark:text-white"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Descrição ou Mensagem</label>
+                                <textarea
+                                    value={suggestDesc}
+                                    onChange={(e) => setSuggestDesc(e.target.value)}
+                                    placeholder="Mais detalhes sobre o documento ou link fonte..."
+                                    rows={4}
+                                    className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-[#121617] border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-[var(--primary-color)] focus:ring-1 focus:ring-[var(--primary-color)] transition-all dark:text-white resize-none"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Seu Nome (Opcional)</label>
+                                    <input
+                                        type="text"
+                                        value={suggestName}
+                                        onChange={(e) => setSuggestName(e.target.value)}
+                                        placeholder="Seu nome completo"
+                                        className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-[#121617] border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-[var(--primary-color)] focus:ring-1 focus:ring-[var(--primary-color)] transition-all dark:text-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Anexar Arquivo (Opcional)</label>
+                                    <div className="relative">
+                                        <input
+                                            type="file"
+                                            onChange={(e) => setSuggestFile(e.target.files ? e.target.files[0] : null)}
+                                            className="hidden"
+                                            id="file-upload"
+                                            accept=".pdf,.doc,.docx,.xls,.xlsx"
+                                        />
+                                        <label
+                                            htmlFor="file-upload"
+                                            className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-[#121617] border border-gray-200 dark:border-gray-700  text-gray-500 dark:text-gray-400 flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-[#1a1f24] transition-colors"
+                                        >
+                                            <span className="truncate">{suggestFile ? suggestFile.name : 'Escolher arquivo...'}</span>
+                                            <span className="material-symbols-outlined shrink-0 bg-[var(--primary-color)]/10 text-[var(--primary-color)] p-1 rounded-lg">upload_file</span>
+                                        </label>
+                                    </div>
+                                    <p className="text-xs text-gray-500 mt-2">Permitido: PDF, DOCX, XLSX</p>
+                                </div>
+                            </div>
+
+                            <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end">
+                                <button
+                                    type="submit"
+                                    disabled={suggestLoading}
+                                    className="px-8 py-3 bg-[var(--primary-color)] hover:opacity-90 text-white rounded-xl font-bold flex items-center gap-2 transition-opacity disabled:opacity-50"
+                                >
+                                    {suggestLoading ? (
+                                        <>
+                                            <span className="material-symbols-outlined animate-spin">progress_activity</span>
+                                            Enviando...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span className="material-symbols-outlined">send</span>
+                                            Enviar Sugestão
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                ) : null}
             </section>
 
             {/* Footer */}

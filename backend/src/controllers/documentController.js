@@ -11,7 +11,7 @@ const getAllDocuments = async (req, res) => {
         if (sectorId) where.sectorId = parseInt(sectorId);
         if (modalityId) where.modalityId = parseInt(modalityId);
         if (type) where.type = type;
-        
+
         if (search) {
             where.OR = [
                 { title: { contains: search, mode: 'insensitive' } },
@@ -20,7 +20,7 @@ const getAllDocuments = async (req, res) => {
         }
 
         const orderBy = { createdAt: 'desc' };
-        const include = { 
+        const include = {
             author: { select: { name: true } },
             sector: true,
             modality: true
@@ -52,9 +52,9 @@ const getAllDocuments = async (req, res) => {
 };
 
 const uploadDocument = async (req, res) => {
-    const { title, description, parentId, type, sectorId, modalityId } = req.body;
+    const { title, description, parentId, type, sectorId, modalityId, existingFileUrl } = req.body;
     // req.file contains the file info if using multer
-    const fileUrl = req.file ? `/uploads/${req.file.filename}` : '';
+    const fileUrl = req.file ? `/uploads/${req.file.filename}` : (existingFileUrl || '');
     const userId = req.user.id;
 
     try {
@@ -66,7 +66,7 @@ const uploadDocument = async (req, res) => {
             if (!parentDoc) {
                 return res.status(404).json({ message: 'Parent document not found' });
             }
-            
+
             // If the parent has a parent, use that as the root (flatten hierarchy)
             rootParentId = parentDoc.parentId || parentDoc.id;
 
@@ -80,7 +80,7 @@ const uploadDocument = async (req, res) => {
                 },
                 select: { version: true }
             });
-            
+
             const maxVersion = Math.max(...versions.map(d => d.version));
             version = maxVersion + 1;
             // Inherit classification from parent if not specified (optional logic, but keeping it simple for now)
@@ -148,7 +148,7 @@ const createDocumentVersion = async (req, res) => {
     const { title, description, type, sectorId, modalityId } = req.body;
     const userId = req.user.id;
     // req.file contains the file info if using multer
-    
+
     try {
         const currentDoc = await prisma.document.findUnique({ where: { id: parseInt(id) } });
 
@@ -157,7 +157,7 @@ const createDocumentVersion = async (req, res) => {
         }
 
         const fileUrl = req.file ? `/uploads/${req.file.filename}` : currentDoc.fileUrl;
-        
+
         // Find the root parent ID
         const rootParentId = currentDoc.parentId || currentDoc.id;
 
@@ -171,7 +171,7 @@ const createDocumentVersion = async (req, res) => {
             },
             select: { version: true }
         });
-        
+
         const maxVersion = Math.max(...versions.map(d => d.version));
         const newVersion = maxVersion + 1;
 
@@ -184,18 +184,18 @@ const createDocumentVersion = async (req, res) => {
         // Correction: getAllDocuments currently returns ALL documents.
         // To support versioning properly, getAllDocuments should probably only return the latest version of each "Document Family".
         // BUT, for now, let's keep it simple: Create new document with parentId pointing to the root.
-        
+
         // Wait! The User wants to EDIT.
         // If I create a new document, the old one remains "Published".
         // We should mark the OLD one as 'archived' if we want only one active.
         // OR filtering logic needs update.
-        
+
         // Let's UPDATE the status of the previous head to 'archived' if we only want one shown?
         // Or simply create the new one.
-        
+
         // The prompt says: "ao edita ro usuário pode substituir o documento...o fato de editar o docuemnto deve aparecer no histórico com data"
         // So we create a NEW version.
-        
+
         const newDoc = await prisma.document.create({
             data: {
                 title: title || currentDoc.title,
@@ -239,10 +239,10 @@ const exportDocuments = async (req, res) => {
             const type = doc.type || 'N/A';
             const authorName = doc.author ? doc.author.name : 'Desconhecido';
             const date = new Date(doc.createdAt).toLocaleDateString();
-            
+
             // Escape quotes and handle commas
             const title = `"${doc.title.replace(/"/g, '""')}"`;
-            
+
             return `${title},${sectorName},${modalityName},${type},${authorName},${date}`;
         }).join('\n');
 

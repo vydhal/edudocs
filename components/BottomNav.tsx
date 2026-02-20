@@ -66,9 +66,9 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
         <div className="hidden md:flex items-center gap-5">
             <button onClick={() => setShowLogoutModal(true)} className="flex items-center gap-3 pl-1 pr-4 py-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border border-transparent hover:border-gray-200 dark:hover:border-gray-700">
                 {user.avatarUrl ? (
-                     <img 
-                        src={getAssetUrl(user.avatarUrl)} 
-                        alt="Profile" 
+                    <img
+                        src={getAssetUrl(user.avatarUrl)}
+                        alt="Profile"
                         className="size-10 rounded-full object-cover shadow-md border-2 border-white dark:border-gray-700"
                     />
                 ) : (
@@ -115,6 +115,10 @@ const BottomNav: React.FC<BottomNavProps> = ({ type }) => {
                     <button onClick={() => navigate('/admin/links')} className={`${navButtonClass} ${!isActive('/admin/links') && inactiveAdminClass}`} style={isActive('/admin/links') ? activeStyle : {}}>
                         <span className="material-symbols-outlined group-hover:text-primary">link</span>
                         <span className={navTextClass}>Links</span>
+                    </button>
+                    <button onClick={() => navigate('/admin/suggestions')} className={`${navButtonClass} ${!isActive('/admin/suggestions') && inactiveAdminClass}`} style={isActive('/admin/suggestions') ? activeStyle : {}}>
+                        <span className="material-symbols-outlined group-hover:text-primary">inbox</span>
+                        <span className={navTextClass}>Sugestões</span>
                     </button>
                     <button onClick={() => navigate('/admin/settings')} className={`${navButtonClass} ${!isActive('/admin/settings') && inactiveAdminClass}`} style={isActive('/admin/settings') ? activeStyle : {}}>
                         <span className="material-symbols-outlined group-hover:text-primary">settings</span>
