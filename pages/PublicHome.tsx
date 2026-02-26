@@ -140,9 +140,7 @@ const PublicHome: React.FC = () => {
             if (suggestName) formData.append('suggesterName', suggestName);
             if (suggestFile) formData.append('file', suggestFile);
 
-            await api.post('/suggestions', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            await api.post('/suggestions', formData);
 
             setSuggestSuccess(true);
             setSuggestTitle('');

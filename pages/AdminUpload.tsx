@@ -10,10 +10,10 @@ const AdminUpload: React.FC = () => {
     const [description, setDescription] = useState('');
     const [file, setFile] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);
-    
+
     const [sectors, setSectors] = useState<any[]>([]);
     const [modalities, setModalities] = useState<any[]>([]);
-    
+
     const [selectedType, setSelectedType] = useState('PDF');
     const [selectedSector, setSelectedSector] = useState('');
     const [selectedModality, setSelectedModality] = useState('');
@@ -58,11 +58,7 @@ const AdminUpload: React.FC = () => {
         setLoading(true);
 
         try {
-            await api.post('/documents', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            await api.post('/documents', formData);
             alert('Documento publicado com sucesso!');
             navigate('/admin/documents');
         } catch (error) {
